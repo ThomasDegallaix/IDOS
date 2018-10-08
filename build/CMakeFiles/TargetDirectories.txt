@@ -1,0 +1,3 @@
+/home/thomas-ubuntu/Desktop/project/build/CMakeFiles/edit_cache.dir
+/home/thomas-ubuntu/Desktop/project/build/CMakeFiles/rebuild_cache.dir
+/home/thomas-ubuntu/Desktop/project/build/CMakeFiles/async_sub.dir
