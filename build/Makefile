@@ -48,24 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas-ubuntu/Desktop/project
+CMAKE_SOURCE_DIR = /home/thomas-ubuntu/Desktop/IDOS
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas-ubuntu/Desktop/project/build
+CMAKE_BINARY_DIR = /home/thomas-ubuntu/Desktop/IDOS/build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -78,11 +67,22 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/project/build/CMakeFiles /home/thomas-ubuntu/Desktop/project/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/project/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named async_pub
+
+# Build rule for target.
+async_pub: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 async_pub
+.PHONY : async_pub
+
+# fast build rule for target.
+async_pub/fast:
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/build
+.PHONY : async_pub/fast
+
+#=============================================================================
 # Target rules for targets named async_sub
 
 # Build rule for target.
@@ -122,6 +135,33 @@ async_sub: cmake_check_build_system
 async_sub/fast:
 	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/build
 .PHONY : async_sub/fast
+
+async_pub.o: async_pub.cpp.o
+
+.PHONY : async_pub.o
+
+# target to build an object file
+async_pub.cpp.o:
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.o
+.PHONY : async_pub.cpp.o
+
+async_pub.i: async_pub.cpp.i
+
+.PHONY : async_pub.i
+
+# target to preprocess a source file
+async_pub.cpp.i:
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.i
+.PHONY : async_pub.cpp.i
+
+async_pub.s: async_pub.cpp.s
+
+.PHONY : async_pub.s
+
+# target to generate assembly for a file
+async_pub.cpp.s:
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.s
+.PHONY : async_pub.cpp.s
 
 async_sub.o: async_sub.cpp.o
 
@@ -156,9 +196,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... async_pub"
 	@echo "... async_sub"
+	@echo "... async_pub.o"
+	@echo "... async_pub.i"
+	@echo "... async_pub.s"
 	@echo "... async_sub.o"
 	@echo "... async_sub.i"
 	@echo "... async_sub.s"

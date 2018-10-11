@@ -160,6 +160,7 @@ int main(int argc, char **argv) {
 
   mqtt::async_client client(SERVER_ADDRESS, CLIENT_ID);
 
+	//Set an object as callbacks for the client
 	callback cb(client, connOpts);
 	client.set_callback(cb);
 

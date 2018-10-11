@@ -16,9 +16,14 @@ find_library(YAML_CPP_LIB NAMES libyaml-cpp.so HINTS "${CMAKE_PREFIX_PATH}" REQU
 
 ## binary files
 add_executable(async_sub async_sub.cpp)
+add_executable(async_pub async_pub.cpp)
 
 ## link binaries
 target_link_libraries(async_sub
+    ${PAHO_C_LIB}
+    ${PAHO_CPP_LIB}
+    ${YAML_CPP_LIB})
+target_link_libraries(async_pub
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
     ${YAML_CPP_LIB})

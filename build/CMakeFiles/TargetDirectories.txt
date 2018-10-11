@@ -1,3 +1,4 @@
-/home/thomas-ubuntu/Desktop/project/build/CMakeFiles/edit_cache.dir
-/home/thomas-ubuntu/Desktop/project/build/CMakeFiles/rebuild_cache.dir
-/home/thomas-ubuntu/Desktop/project/build/CMakeFiles/async_sub.dir
+/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/rebuild_cache.dir
+/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/edit_cache.dir
+/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/async_pub.dir
+/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/async_sub.dir

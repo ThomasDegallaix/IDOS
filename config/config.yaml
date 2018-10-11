@@ -1,9 +1,9 @@
 # Configuration file which contains parameters for MQTT c++ sub/pub
 
 #port ssl: 18885, no ssl: 1883
-#"ssl://localhost:18885"
+#"tcp://localhost:1883"
 ## BROKER
-server_address: "tcp://localhost:1883"
+server_address: "ssl://localhost:18885" 
 
 ##CLIENT
 client_id: "control_server"
