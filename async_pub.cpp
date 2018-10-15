@@ -16,12 +16,14 @@
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
 
+//ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
-const std::string CLIENT_ID(config["client_id1"].as<std::string>());
-const std::string TOPIC(config["topic_server"].as<std::string>());
+const std::string CLIENT_NAME(config["clients"]["niryo"]["name"].as<std::string>());
+const int CLIENT_ID(config["ID_entity"].as<int>());
+const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 
 //Print by the other clients
 const char* LWT_PAYLOAD = "The control server is now offline...";
@@ -69,7 +71,8 @@ int main(int argc, char **argv) {
 	message_processing mp;
 
 	std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
-	mqtt::async_client client(SERVER_ADDRESS,CLIENT_ID);
+	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
+	mqtt::async_client client(SERVER_ADDRESS,CLIENT);
 
 	//Set up SSL
 	mqtt::ssl_options sslopts;

@@ -18,15 +18,15 @@
 #include "mqtt/async_client.h" //include almost the whole mqtt library
 #include "yaml-cpp/yaml.h"
 
-
-
+//ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 /* This variables set up the parameters of the mqtt communication */
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
-const std::string CLIENT_ID(config["client_id2"].as<std::string>());
-const std::string TOPIC(config["topic_server"].as<std::string>());
+const std::string CLIENT_NAME(config["clients"]["server"]["name"].as<std::string>());
+const int CLIENT_ID(config["ID_entity"].as<int>());
+const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 /* Quality Of Service level - 1 = message devlivered at least once - use of ACK */
 const int QOS = config["QOS"].as<int>();
 /* In case of problems, number of time the client is trying to reconnect */
@@ -162,7 +162,8 @@ int main(int argc, char **argv) {
 	connOpts.set_password("TrYaGA1N");
   connOpts.set_ssl(sslopts);
 
-  mqtt::async_client client(SERVER_ADDRESS, CLIENT_ID);
+  std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
+  mqtt::async_client client(SERVER_ADDRESS, CLIENT);
 
 	//Set an object as callbacks for the client
 	callback cb(client, connOpts);

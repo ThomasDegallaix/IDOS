@@ -1,4 +1,4 @@
-# Configuration file which contains parameters for MQTT c++ sub/pub
+# Configuration file which contains parameters for MQTT c++ sub/pub gateway
 
 #port ssl: 18885, no ssl: 1883
 #"tcp://localhost:1883"
@@ -6,14 +6,42 @@
 ## BROKER
 server_address: "ssl://localhost:18885"
 
-##CLIENT
-client_id1: "Device1"
-client_id2: "Device2"
+## /!\ THIS HAS TO BE SET UP BY THE ADMINISTRATOR FOR THE MOMENT /!\
+current_entity: "isenbot"
+##current_entity: "niryo"
+##current_entity: "hexapod"
+##current_entity: "turtlebot"
+##current_entity: "server"
 
+##This ID corresponds to the robot number among the other robots of the same type
+## /!\ THIS HAS TO BE SET UP BY THE ADMINISTRATOR FOR THE MOMENT /!\
+ID_entity: 1
 
-#créer une liste de topics pour chaque device de façon à ce que la gateway subscribe itérativement à chacun d'eux
-##TOPICS
-topic_server: "topic_server1"
+##CLIENTS and RELATED PARAMATERS
+clients:
+  niryo:
+    name: "niryo"
+    ID_type: 100
+    topic: "niryo_t"
+  turtlebot:
+    name: "turtlebot"
+    ID_type: 200
+    topic: "turtlebot_t"
+  isenbot:
+    name: "isenbot"
+    ID_type: 300
+    topic: "isenbot_t"
+  hexapod:
+    name: "hexapod"
+    topic: "hexapod_t"
+    ID_type: 400
+  server:
+    name: "server"
+    ID_type: 500
+    topic: "server_t"
+
+##Which ID to use in order to broadcast a message
+ID_broadcast: 1000
 
 ##Quality Of Service
 QOS: 1
