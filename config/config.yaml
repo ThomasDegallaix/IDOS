@@ -2,14 +2,17 @@
 
 #port ssl: 18885, no ssl: 1883
 #"tcp://localhost:1883"
+#"ssl://localhost:18885"
 ## BROKER
-server_address: "ssl://localhost:18885" 
+server_address: "ssl://localhost:18885"
 
 ##CLIENT
-client_id: "control_server"
+client_id1: "Device1"
+client_id2: "Device2"
+
 
 #créer une liste de topics pour chaque device de façon à ce que la gateway subscribe itérativement à chacun d'eux
-##TOPICS 
+##TOPICS
 topic_server: "topic_server1"
 
 ##Quality Of Service

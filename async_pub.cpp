@@ -1,9 +1,9 @@
-//Check if mosquitto is running if you are the broker
+//Check if mosquitto is running with the correct config file if you are the broker
 //Check if mosquitto-clients is installed if you are a client
 //https://github.com/eclipse/paho.mqtt.cpp
 //Inspired by paho cpp samples
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * Asynchronous mqtt publisher using SSL based on async_publish.cpp *
 *            in the paho mqtt cpp library                          *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -20,7 +20,7 @@
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
-const std::string CLIENT_ID(config["client_id"].as<std::string>());
+const std::string CLIENT_ID(config["client_id1"].as<std::string>());
 const std::string TOPIC(config["topic_server"].as<std::string>());
 
 //Print by the other clients
@@ -28,7 +28,6 @@ const char* LWT_PAYLOAD = "The control server is now offline...";
 
 const int QOS = config["QOS"].as<int>();
 
-//DO WE NEED IT ?
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
 
 /* A callback class for use with the main MQTT client */
@@ -50,11 +49,10 @@ public:
 class message_processing {
 public:
 	char* get_usr_msg() {
-		char msg[50];
+		char* msg = new char[1024];
 		std::cout << "\nWrite your message:\n" << std::endl;
 		std::cin >> msg;
-		std::cout << "flag0" << std::endl;
-		return &(?????)msg;
+		return msg;
 	}
 
 };
@@ -64,9 +62,6 @@ public:
 //http://www.raspberry-projects.com/pi/programming-in-c/pipes/named-pipes-fifos
 //ou ultra simple sub/pub python
 
-
-//Créer nouveau certificat ssl
-//Créer un topic pour les willmsg ? => commencer à utiliser l'arborescence mqtt
 
 int main(int argc, char **argv) {
 
@@ -78,7 +73,6 @@ int main(int argc, char **argv) {
 
 	//Set up SSL
 	mqtt::ssl_options sslopts;
-	//Certificate has to be changed      ===>    http://www.steves-internet-guide.com/mosquitto-tls/    http://www.steves-internet-guide.com/ssl-certificates-explained/
 	sslopts.set_trust_store("../certs/ca.crt");
 
 	mqtt::message willmsg(TOPIC, LWT_PAYLOAD, 1, true);
@@ -102,45 +96,14 @@ int main(int argc, char **argv) {
 		//conntok->wait();
 		std::cout << "  ...OK" << std::endl;
 
-/*
-		std::cout << "\nConnecting..." << std::endl;
-		mqtt::token_ptr conntok = client.connect(connopts);
-		std::cout << "Waiting for the connection..." << std::endl;
-		conntok->wait();
-		std::cout << "  ...OK" << std::endl;
-*/
 
 		payload = mp.get_usr_msg();
 		mqtt::delivery_token_ptr pubtok;
-//BUG HERE
-		std::cout << "flag1" << std::endl;
-		std::cout << strlen(payload) << std::endl;
-		std::cout << "flag2" << std::endl;
 		pubtok = client.publish(TOPIC, payload, strlen(payload), QOS, false);
 		std::cout << "\nSending message..." << std::endl;
 		pubtok->wait_for(TIMEOUT);
 		std::cout << "  ...OK" << std::endl;
 
-/*		std::cout << "\nSending message..." << std::endl;
-		mqtt::message_ptr pubmsg = mqtt::make_message(TOPIC, PAYLOAD1);
-		pubmsg->set_qos(QOS);
-		client.publish(pubmsg)->wait_for(TIMEOUT);
-		std::cout << "  ...OK" << std::endl;*/
-
-/*		// Now try with itemized publish.
-
-		std::cout << "\nSending next message..." << std::endl;
-		mqtt::delivery_token_ptr pubtok;
-		pubtok = client.publish(TOPIC, PAYLOAD2, strlen(PAYLOAD2), QOS, false);
-		pubtok->wait_for(TIMEOUT);
-		std::cout << "  ...OK" << std::endl;
-
-		// Disconnect
-
-		std::cout << "\nDisconnecting..." << std::endl;
-		conntok = client.disconnect();
-		conntok->wait();
-		std::cout << "  ...OK" << std::endl;*/
 
 		// Just block till user tells us to quit.
 		while (std::tolower(std::cin.get()) != 'q');
@@ -161,9 +124,9 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	
+
 
 
   return 0;
-	
+
 }

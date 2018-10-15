@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 include(CheckCXXCompilerFlag)
 
-#Faire en sorte d'installer et de build les librairies recquises ?
+#Faire en sorte d'installer et de build les librairies requises ?
 
 project(mqtt_gateway)
 
@@ -27,4 +27,3 @@ target_link_libraries(async_pub
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
     ${YAML_CPP_LIB})
-

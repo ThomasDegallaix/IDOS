@@ -1,4 +1,4 @@
-//Check if mosquitto is running if you are the broker
+//Check if mosquitto is running with the correct config file if you are the broker
 //Check if mosquitto-clients is installed if you are a client
 //https://github.com/eclipse/paho.mqtt.cpp
 //Inspired by paho cpp samples
@@ -25,7 +25,7 @@ YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 /* This variables set up the parameters of the mqtt communication */
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
-const std::string CLIENT_ID(config["client_id"].as<std::string>()); 
+const std::string CLIENT_ID(config["client_id2"].as<std::string>());
 const std::string TOPIC(config["topic_server"].as<std::string>());
 /* Quality Of Service level - 1 = message devlivered at least once - use of ACK */
 const int QOS = config["QOS"].as<int>();
@@ -150,13 +150,17 @@ public:
 
 int main(int argc, char **argv) {
 
+  mqtt::ssl_options sslopts;
+  sslopts.set_trust_store("../certs/ca.crt");
+
   //set_keep_alive_interval = max time should pass between client and serv without communication
   //set_clean_session = Sets whether the server should remember state for the client across reconnects
   mqtt::connect_options connOpts;
 	connOpts.set_keep_alive_interval(20);
 	connOpts.set_clean_session(true);
-	connOpts.set_user_name("IDOSdevice1");
+	connOpts.set_user_name("IDOSdevice2");
 	connOpts.set_password("TrYaGA1N");
+  connOpts.set_ssl(sslopts);
 
   mqtt::async_client client(SERVER_ADDRESS, CLIENT_ID);
 
