@@ -114,7 +114,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=mqtt_gateway
+CMAKE_PROJECT_NAME:STATIC=gateway_mqtt
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -173,6 +173,12 @@ PAHO_C_LIB:FILEPATH=/usr/local/lib/libpaho-mqtt3a.so
 
 //Path to a library.
 YAML_CPP_LIB:FILEPATH=/usr/local/lib/libyaml-cpp.so
+
+//Value Computed by CMake
+gateway_mqtt_BINARY_DIR:STATIC=/home/thomas-ubuntu/Desktop/IDOS/build
+
+//Value Computed by CMake
+gateway_mqtt_SOURCE_DIR:STATIC=/home/thomas-ubuntu/Desktop/IDOS
 
 //Value Computed by CMake
 mqtt_gateway_BINARY_DIR:STATIC=/home/thomas-ubuntu/Desktop/IDOS/build

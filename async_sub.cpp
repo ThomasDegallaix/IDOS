@@ -76,8 +76,6 @@ public:
  // how callbacks works = Callbacks are declared in the async_client.cpp with the function set_callback(s)
 class callback : public virtual mqtt::callback, public virtual mqtt::iaction_listener {
 
-  // /!\ Les objets sont déclarés par référence pour éviter un duplicata et faire en sorte que le c++ empêche les objets null pendant le runtime
-
   /* Number of connection retries before timeout */
   int nretry_;
   /* Declaration of the MQTT client */

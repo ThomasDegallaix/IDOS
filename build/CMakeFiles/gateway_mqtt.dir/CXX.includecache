@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/thomas-ubuntu/Desktop/IDOS/gateway_mqtt.cpp
+iostream
+-
+cstdlib
+-
+string
+-
+cstring
+-
+cctype
+-
+thread
+-
+chrono
+-
+mqtt/async_client.h
+/home/thomas-ubuntu/Desktop/IDOS/mqtt/async_client.h
+yaml-cpp/yaml.h
+/home/thomas-ubuntu/Desktop/IDOS/yaml-cpp/yaml.h
+

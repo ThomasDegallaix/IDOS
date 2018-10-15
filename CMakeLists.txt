@@ -3,7 +3,7 @@ include(CheckCXXCompilerFlag)
 
 #Faire en sorte d'installer et de build les librairies requises ?
 
-project(mqtt_gateway)
+project(gateway_mqtt)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -17,6 +17,7 @@ find_library(YAML_CPP_LIB NAMES libyaml-cpp.so HINTS "${CMAKE_PREFIX_PATH}" REQU
 ## binary files
 add_executable(async_sub async_sub.cpp)
 add_executable(async_pub async_pub.cpp)
+add_executable(gateway_mqtt gateway_mqtt.cpp)
 
 ## link binaries
 target_link_libraries(async_sub
@@ -24,6 +25,10 @@ target_link_libraries(async_sub
     ${PAHO_CPP_LIB}
     ${YAML_CPP_LIB})
 target_link_libraries(async_pub
+    ${PAHO_C_LIB}
+    ${PAHO_CPP_LIB}
+    ${YAML_CPP_LIB})
+target_link_libraries(gateway_mqtt
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
     ${YAML_CPP_LIB})

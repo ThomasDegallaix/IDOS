@@ -29,7 +29,6 @@ const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 const char* LWT_PAYLOAD = "The control server is now offline...";
 
 const int QOS = config["QOS"].as<int>();
-
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
 
 /* A callback class for use with the main MQTT client */

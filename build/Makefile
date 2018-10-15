@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/thomas-ubuntu/Desktop/IDOS/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named async_sub
+
+# Build rule for target.
+async_sub: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 async_sub
+.PHONY : async_sub
+
+# fast build rule for target.
+async_sub/fast:
+	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/build
+.PHONY : async_sub/fast
+
+#=============================================================================
 # Target rules for targets named async_pub
 
 # Build rule for target.
@@ -124,17 +137,17 @@ async_pub/fast:
 .PHONY : async_pub/fast
 
 #=============================================================================
-# Target rules for targets named async_sub
+# Target rules for targets named gateway_mqtt
 
 # Build rule for target.
-async_sub: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 async_sub
-.PHONY : async_sub
+gateway_mqtt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gateway_mqtt
+.PHONY : gateway_mqtt
 
 # fast build rule for target.
-async_sub/fast:
-	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/build
-.PHONY : async_sub/fast
+gateway_mqtt/fast:
+	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/build
+.PHONY : gateway_mqtt/fast
 
 async_pub.o: async_pub.cpp.o
 
@@ -190,22 +203,53 @@ async_sub.cpp.s:
 	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/async_sub.cpp.s
 .PHONY : async_sub.cpp.s
 
+gateway_mqtt.o: gateway_mqtt.cpp.o
+
+.PHONY : gateway_mqtt.o
+
+# target to build an object file
+gateway_mqtt.cpp.o:
+	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.o
+.PHONY : gateway_mqtt.cpp.o
+
+gateway_mqtt.i: gateway_mqtt.cpp.i
+
+.PHONY : gateway_mqtt.i
+
+# target to preprocess a source file
+gateway_mqtt.cpp.i:
+	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.i
+.PHONY : gateway_mqtt.cpp.i
+
+gateway_mqtt.s: gateway_mqtt.cpp.s
+
+.PHONY : gateway_mqtt.s
+
+# target to generate assembly for a file
+gateway_mqtt.cpp.s:
+	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.s
+.PHONY : gateway_mqtt.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... async_pub"
 	@echo "... async_sub"
+	@echo "... async_pub"
+	@echo "... gateway_mqtt"
+	@echo "... rebuild_cache"
 	@echo "... async_pub.o"
 	@echo "... async_pub.i"
 	@echo "... async_pub.s"
 	@echo "... async_sub.o"
 	@echo "... async_sub.i"
 	@echo "... async_sub.s"
+	@echo "... gateway_mqtt.o"
+	@echo "... gateway_mqtt.i"
+	@echo "... gateway_mqtt.s"
 .PHONY : help
 
 
