@@ -148,6 +148,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		std::cout << "Message arrived" << std::endl;
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
+
 	}
 
   /* ACK */
@@ -158,18 +159,6 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 
 public:
   callback(mqtt::async_client& cli, mqtt::connect_options& connOpts): nretry_(0), cli_(cli), connOpts_(connOpts), subListener_("Subscription") {}
-
-};
-
-//need filter + data parser
-class message_processing {
-public:
-	char* get_msg() {
-		char* msg = new char[1024];
-		std::cout << "\nWrite your message:\n" << std::endl;
-		std::cin >> msg;
-		return msg;
-	}
 
 };
 

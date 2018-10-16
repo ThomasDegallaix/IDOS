@@ -33,8 +33,8 @@ clients:
     topic: "isenbot_t"
   hexapod:
     name: "hexapod"
-    topic: "hexapod_t"
     ID_type: 400
+    topic: "hexapod_t"
   server:
     name: "server"
     ID_type: 500

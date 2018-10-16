@@ -25,7 +25,6 @@ const std::string CLIENT_NAME(config["clients"]["niryo"]["name"].as<std::string>
 const int CLIENT_ID(config["ID_entity"].as<int>());
 const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 
-//Print by the other clients
 const char* LWT_PAYLOAD = "The control server is now offline...";
 
 const int QOS = config["QOS"].as<int>();
@@ -55,13 +54,13 @@ public:
 		std::cin >> msg;
 		return msg;
 	}
-
 };
 
 
 //inter process comm = named pipes ?? (fifo)
 //http://www.raspberry-projects.com/pi/programming-in-c/pipes/named-pipes-fifos
 //ou ultra simple sub/pub python
+//ou sockets
 
 
 int main(int argc, char **argv) {
@@ -81,7 +80,7 @@ int main(int argc, char **argv) {
 	mqtt::will_options will(willmsg);
 
 	mqtt::connect_options connOpts;
-	connOpts.set_user_name("IDOSdevice1");
+	connOpts.set_user_name("IDOSdevice2");
 	connOpts.set_password("TrYaGA1N");
 	connOpts.set_will(will);
 	connOpts.set_ssl(sslopts);

@@ -156,7 +156,7 @@ int main(int argc, char **argv) {
   mqtt::connect_options connOpts;
 	connOpts.set_keep_alive_interval(20);
 	connOpts.set_clean_session(true);
-	connOpts.set_user_name("IDOSdevice2");
+	connOpts.set_user_name("IDOSdevice1");
 	connOpts.set_password("TrYaGA1N");
   connOpts.set_ssl(sslopts);
 
