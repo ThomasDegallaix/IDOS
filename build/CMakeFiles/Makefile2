@@ -171,6 +171,43 @@ clean: CMakeFiles/gateway_mqtt.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/idos_message.dir
+
+# All Build rule for target.
+CMakeFiles/idos_message.dir/all:
+	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/depend
+	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=7,8 "Built target idos_message"
+.PHONY : CMakeFiles/idos_message.dir/all
+
+# Include target in all.
+all: CMakeFiles/idos_message.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/idos_message.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/idos_message.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
+.PHONY : CMakeFiles/idos_message.dir/rule
+
+# Convenience name for target.
+idos_message: CMakeFiles/idos_message.dir/rule
+
+.PHONY : idos_message
+
+# clean rule for target.
+CMakeFiles/idos_message.dir/clean:
+	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/clean
+.PHONY : CMakeFiles/idos_message.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/idos_message.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

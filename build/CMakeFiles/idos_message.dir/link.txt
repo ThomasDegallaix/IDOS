@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11   CMakeFiles/idos_message.dir/idos_message.cpp.o  -o idos_message -rdynamic /usr/local/lib/libyaml-cpp.so -Wl,-rpath,/usr/local/lib 

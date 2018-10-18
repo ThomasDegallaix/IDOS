@@ -149,6 +149,19 @@ gateway_mqtt/fast:
 	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/build
 .PHONY : gateway_mqtt/fast
 
+#=============================================================================
+# Target rules for targets named idos_message
+
+# Build rule for target.
+idos_message: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 idos_message
+.PHONY : idos_message
+
+# fast build rule for target.
+idos_message/fast:
+	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/build
+.PHONY : idos_message/fast
+
 async_pub.o: async_pub.cpp.o
 
 .PHONY : async_pub.o
@@ -230,6 +243,33 @@ gateway_mqtt.cpp.s:
 	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.s
 .PHONY : gateway_mqtt.cpp.s
 
+idos_message.o: idos_message.cpp.o
+
+.PHONY : idos_message.o
+
+# target to build an object file
+idos_message.cpp.o:
+	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/idos_message.cpp.o
+.PHONY : idos_message.cpp.o
+
+idos_message.i: idos_message.cpp.i
+
+.PHONY : idos_message.i
+
+# target to preprocess a source file
+idos_message.cpp.i:
+	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/idos_message.cpp.i
+.PHONY : idos_message.cpp.i
+
+idos_message.s: idos_message.cpp.s
+
+.PHONY : idos_message.s
+
+# target to generate assembly for a file
+idos_message.cpp.s:
+	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/idos_message.cpp.s
+.PHONY : idos_message.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -237,10 +277,11 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... rebuild_cache"
 	@echo "... async_sub"
 	@echo "... async_pub"
 	@echo "... gateway_mqtt"
-	@echo "... rebuild_cache"
+	@echo "... idos_message"
 	@echo "... async_pub.o"
 	@echo "... async_pub.i"
 	@echo "... async_pub.s"
@@ -250,6 +291,9 @@ help:
 	@echo "... gateway_mqtt.o"
 	@echo "... gateway_mqtt.i"
 	@echo "... gateway_mqtt.s"
+	@echo "... idos_message.o"
+	@echo "... idos_message.i"
+	@echo "... idos_message.s"
 .PHONY : help
 
 

@@ -18,6 +18,7 @@ find_library(YAML_CPP_LIB NAMES libyaml-cpp.so HINTS "${CMAKE_PREFIX_PATH}" REQU
 add_executable(async_sub async_sub.cpp)
 add_executable(async_pub async_pub.cpp)
 add_executable(gateway_mqtt gateway_mqtt.cpp)
+add_executable(idos_message idos_message.cpp)
 
 ## link binaries
 target_link_libraries(async_sub
@@ -31,4 +32,6 @@ target_link_libraries(async_pub
 target_link_libraries(gateway_mqtt
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
+    ${YAML_CPP_LIB})
+target_link_libraries(idos_message
     ${YAML_CPP_LIB})
