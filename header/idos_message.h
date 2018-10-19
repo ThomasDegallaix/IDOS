@@ -29,11 +29,12 @@ public:
   /* setters */
   void set_senderId(short int sender_id);
   void set_receiverdId(short int receiver_id);
-  void set_length(int datatype_length);
+  void set_length();
   void set_datatype(std::string datatype);
   void set_payload(std::vector<std::string> payload);
 
-
+  /* Clear the payload */
+  void clear_payload();
 
 private:
   //short int = 2bytes
