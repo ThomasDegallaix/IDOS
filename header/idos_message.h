@@ -35,6 +35,12 @@ public:
 
   /* Clear the payload */
   void clear_payload();
+  /* Clear every attribut of the message */
+  void clear_message();
+  /* Print every element of the payload */
+  void print_payload();
+  /* Print the message */
+  void print_message();
 
 private:
   //short int = 2bytes
