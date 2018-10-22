@@ -150,17 +150,17 @@ gateway_mqtt/fast:
 .PHONY : gateway_mqtt/fast
 
 #=============================================================================
-# Target rules for targets named idos_message
+# Target rules for targets named testfile
 
 # Build rule for target.
-idos_message: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 idos_message
-.PHONY : idos_message
+testfile: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testfile
+.PHONY : testfile
 
 # fast build rule for target.
-idos_message/fast:
-	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/build
-.PHONY : idos_message/fast
+testfile/fast:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
+.PHONY : testfile/fast
 
 async_pub.o: async_pub.cpp.o
 
@@ -243,32 +243,32 @@ gateway_mqtt.cpp.s:
 	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.s
 .PHONY : gateway_mqtt.cpp.s
 
-idos_message.o: idos_message.cpp.o
+testfiles/testplace.o: testfiles/testplace.cpp.o
 
-.PHONY : idos_message.o
+.PHONY : testfiles/testplace.o
 
 # target to build an object file
-idos_message.cpp.o:
-	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/idos_message.cpp.o
-.PHONY : idos_message.cpp.o
+testfiles/testplace.cpp.o:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/testfiles/testplace.cpp.o
+.PHONY : testfiles/testplace.cpp.o
 
-idos_message.i: idos_message.cpp.i
+testfiles/testplace.i: testfiles/testplace.cpp.i
 
-.PHONY : idos_message.i
+.PHONY : testfiles/testplace.i
 
 # target to preprocess a source file
-idos_message.cpp.i:
-	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/idos_message.cpp.i
-.PHONY : idos_message.cpp.i
+testfiles/testplace.cpp.i:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/testfiles/testplace.cpp.i
+.PHONY : testfiles/testplace.cpp.i
 
-idos_message.s: idos_message.cpp.s
+testfiles/testplace.s: testfiles/testplace.cpp.s
 
-.PHONY : idos_message.s
+.PHONY : testfiles/testplace.s
 
 # target to generate assembly for a file
-idos_message.cpp.s:
-	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/idos_message.cpp.s
-.PHONY : idos_message.cpp.s
+testfiles/testplace.cpp.s:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/testfiles/testplace.cpp.s
+.PHONY : testfiles/testplace.cpp.s
 
 # Help Target
 help:
@@ -281,7 +281,7 @@ help:
 	@echo "... async_sub"
 	@echo "... async_pub"
 	@echo "... gateway_mqtt"
-	@echo "... idos_message"
+	@echo "... testfile"
 	@echo "... async_pub.o"
 	@echo "... async_pub.i"
 	@echo "... async_pub.s"
@@ -291,9 +291,9 @@ help:
 	@echo "... gateway_mqtt.o"
 	@echo "... gateway_mqtt.i"
 	@echo "... gateway_mqtt.s"
-	@echo "... idos_message.o"
-	@echo "... idos_message.i"
-	@echo "... idos_message.s"
+	@echo "... testfiles/testplace.o"
+	@echo "... testfiles/testplace.i"
+	@echo "... testfiles/testplace.s"
 .PHONY : help
 
 

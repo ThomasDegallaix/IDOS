@@ -171,39 +171,39 @@ clean: CMakeFiles/gateway_mqtt.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/idos_message.dir
+# Target rules for target CMakeFiles/testfile.dir
 
 # All Build rule for target.
-CMakeFiles/idos_message.dir/all:
-	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/depend
-	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=7,8 "Built target idos_message"
-.PHONY : CMakeFiles/idos_message.dir/all
+CMakeFiles/testfile.dir/all:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/depend
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=7,8 "Built target testfile"
+.PHONY : CMakeFiles/testfile.dir/all
 
 # Include target in all.
-all: CMakeFiles/idos_message.dir/all
+all: CMakeFiles/testfile.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/idos_message.dir/rule: cmake_check_build_system
+CMakeFiles/testfile.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/idos_message.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testfile.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
-.PHONY : CMakeFiles/idos_message.dir/rule
+.PHONY : CMakeFiles/testfile.dir/rule
 
 # Convenience name for target.
-idos_message: CMakeFiles/idos_message.dir/rule
+testfile: CMakeFiles/testfile.dir/rule
 
-.PHONY : idos_message
-
-# clean rule for target.
-CMakeFiles/idos_message.dir/clean:
-	$(MAKE) -f CMakeFiles/idos_message.dir/build.make CMakeFiles/idos_message.dir/clean
-.PHONY : CMakeFiles/idos_message.dir/clean
+.PHONY : testfile
 
 # clean rule for target.
-clean: CMakeFiles/idos_message.dir/clean
+CMakeFiles/testfile.dir/clean:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/clean
+.PHONY : CMakeFiles/testfile.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/testfile.dir/clean
 
 .PHONY : clean
 

@@ -171,6 +171,9 @@ PAHO_CPP_LIB:FILEPATH=/usr/local/lib/libpaho-mqttpp3.so
 //Path to a library.
 PAHO_C_LIB:FILEPATH=/usr/local/lib/libpaho-mqtt3a.so
 
+//The directory containing a CMake configuration file for RapidJSON.
+RapidJSON_DIR:PATH=/home/thomas-ubuntu/Desktop/IDOS/libraries/rapidjson/build
+
 //Path to a library.
 YAML_CPP_LIB:FILEPATH=/usr/local/lib/libyaml-cpp.so
 

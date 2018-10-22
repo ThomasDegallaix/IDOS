@@ -14,7 +14,6 @@
 #include "yaml-cpp/yaml.h"
 
 /* TODO */
-// test pub avec idos message
 // configuration de la gateway selon le robot
 // chargement des paramètres du robot
 // communication inter process => MPI (python <=> C++)
