@@ -13,6 +13,18 @@
 #include "mqtt/async_client.h" //include almost the whole mqtt library
 #include "yaml-cpp/yaml.h"
 
+/* TODO */
+// test pub avec idos message
+// configuration de la gateway selon le robot
+// chargement des paramètres du robot
+// communication inter process => MPI (python <=> C++)
+// Callback lorsque l'appli principale veut envoyer un message via mqtt
+// Callback lorsque l'appli principale doit recevoir un message via mqtt3
+// Création des différents topics à utiliser
+// soigner le code
+// Repenser l'architecture du dossier (création d'un dossier pour les execs, dossier avec libraires, etc)
+// documentation: Sources, fonctionnement, tuto d'utilisation, tuto d'installation
+
 
 //LOAD DIFFERENT CONFIGURATIONS DIRECLTY AT THE BEGINNING OF MAIN
 YAML::Node config = YAML::LoadFile("../config/config.yaml");

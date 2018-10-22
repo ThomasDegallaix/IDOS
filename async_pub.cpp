@@ -15,6 +15,7 @@
 #include <cstring>
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
+#include "header/idos_message.h"
 
 //ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 
@@ -25,7 +26,7 @@ const std::string CLIENT_NAME(config["clients"]["niryo"]["name"].as<std::string>
 const int CLIENT_ID(config["ID_entity"].as<int>());
 const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 
-const char* LWT_PAYLOAD = "The control server is now offline...";
+const std::string LWT_PAYLOAD = config["clients"]["niryo"]["name"].as<std::string>() + std::to_string(CLIENT_ID) + " is now offline...";
 
 const int QOS = config["QOS"].as<int>();
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
@@ -65,6 +66,10 @@ public:
 
 int main(int argc, char **argv) {
 
+	//Comment faire passer un message idos par le publisher ?
+	std::vector<std::string> payload1 {"0","1","2","3","4","5","6", "7"};
+	idos_message msg(500,201,"intg",payload1);
+
 	char* payload;
 	message_processing mp;
 
@@ -98,9 +103,9 @@ int main(int argc, char **argv) {
 		std::cout << "  ...OK" << std::endl;
 
 
-		payload = mp.get_usr_msg();
+		//payload = mp.get_usr_msg();
 		mqtt::delivery_token_ptr pubtok;
-		pubtok = client.publish(TOPIC, payload, strlen(payload), QOS, false);
+		pubtok = client.publish(TOPIC, msg, strlen(payload), QOS, false);
 		std::cout << "\nSending message..." << std::endl;
 		pubtok->wait_for(TIMEOUT);
 		std::cout << "  ...OK" << std::endl;

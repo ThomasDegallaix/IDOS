@@ -22,6 +22,7 @@ public:
   /* getters */
   short int get_senderId();
   short int get_receiverId();
+  /* length sum of datatype (string) and payload in bytes */
   short int get_length();
   std::string get_datatype();
   std::vector<std::string> &get_payload();
@@ -29,6 +30,7 @@ public:
   /* setters */
   void set_senderId(short int sender_id);
   void set_receiverdId(short int receiver_id);
+  /* length sum of datatype (string) and payload in bytes */
   void set_length();
   void set_datatype(std::string datatype);
   void set_payload(std::vector<std::string> payload);
@@ -41,9 +43,13 @@ public:
   void print_payload();
   /* Print the message */
   void print_message();
+  /* Unpack data + convert */
+  //https://openclassrooms.com/fr/courses/1894236-programmez-avec-le-langage-c/1903999-creer-des-templates
+  template <typename T>
+  T unpack();
+
 
 private:
-  //short int = 2bytes
   short int _sender_id;
   short int _receiver_id;
   //length = _datatype length + _payload length

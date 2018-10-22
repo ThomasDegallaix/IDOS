@@ -21,4 +21,12 @@ mqtt/async_client.h
 /home/thomas-ubuntu/Desktop/IDOS/mqtt/async_client.h
 yaml-cpp/yaml.h
 /home/thomas-ubuntu/Desktop/IDOS/yaml-cpp/yaml.h
+header/idos_message.h
+/home/thomas-ubuntu/Desktop/IDOS/header/idos_message.h
+
+/home/thomas-ubuntu/Desktop/IDOS/header/idos_message.h
+vector
+-
+string
+-
 

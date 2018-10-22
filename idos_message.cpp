@@ -95,6 +95,24 @@ void idos_message::print_payload() {
   std::cout << ']' ;
 }
 
+template <typename T>
+T idos_message::unpack() {
+  //if selon DATATYPE
+  //ITÉRATION DU VECTEUR
+  //Transfert dans un vecteur/array de type selon DATATYPE
+  //Retour de la nouvelle liste
+  if (_datatype.compare("strg") == 0) {
+
+  }
+  else if (_datatype.compare("intg") == 0) {
+
+  }
+  else if (_datatype.compare("dble") == 0) {
+
+  }
+  //return
+}
+
 //Ajout d'une gestion des ids receiver et sender en fonction des paramètres du robot
 
 int main(int argc, char **argv) {
