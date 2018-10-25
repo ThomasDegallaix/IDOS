@@ -27,8 +27,6 @@ mqtt/async_client.h
 /home/thomas-ubuntu/Desktop/IDOS/mqtt/async_client.h
 yaml-cpp/yaml.h
 /home/thomas-ubuntu/Desktop/IDOS/yaml-cpp/yaml.h
-typeinfo
--
 
 /home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
 algorithm

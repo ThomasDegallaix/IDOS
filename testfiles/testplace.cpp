@@ -24,16 +24,11 @@ int main(int argc, char **argv) {
 
   j["sender_id"] = "500";
   j["receiver_id"] = "202";
-  j["datatype"] = "strg";
   j["data"]["function"] = "roadMap";
 
-  int length = 0;
   for (int i =0; i< j["data"]["payload"].size();i++) {
     j["data"]["payload"][i] = "1";
-    length += j["data"]["payload"][i].get<std::string>().length();
   }
-
-  j["data"]["length"] = length + j["data"]["function"].get<std::string>().length() + j["datatype"].get<std::string>().length();
 
   std::cout << "" << std::endl;
   std::cout << j << std::endl;

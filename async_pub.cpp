@@ -19,8 +19,6 @@
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
 
-#include <typeinfo>
-
 
 using json = nlohmann::json;
 
@@ -73,8 +71,8 @@ public:
 
 int main(int argc, char **argv) {
 
-	char* payload;
-	message_processing mp;
+	//char* payload;
+	//message_processing mp;
 
 	std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
 	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
@@ -101,42 +99,39 @@ int main(int argc, char **argv) {
 	try {
 		std::cout << "Connecting to the MQTT server..." << std::flush;
 		mqtt::token_ptr conntok = client.connect(connOpts);
-		//std::cout << "Waiting for the connection..." << std::endl;
-		//conntok->wait();
+		std::cout << "Waiting for the connection..." << std::endl;
+		conntok->wait();
 		std::cout << "  ...OK" << std::endl;
 
 
 		/* JSON TEST */
+
 		std::ifstream ifs("../config/message.json");
 		if(!ifs.is_open()) {
 	    std::cout << "ERROR: Could not open file" << std::endl;
 	    return false;
 	  }
 		json j = json::parse(ifs);
+		ifs.close();
 		j["sender_id"] = "500";
 	  j["receiver_id"] = "202";
-	  j["datatype"] = "strg";
 	  j["data"]["function"] = "roadMap";
-		ifs.close();
 
-	  int length = 0;
 	  for (int i =0; i< j["data"]["payload"].size();i++) {
 	    j["data"]["payload"][i] = "1";
-	    length += j["data"]["payload"][i].get<std::string>().length();
 	  }
-
-	  j["data"]["length"] = length + j["data"]["function"].get<std::string>().length() + j["datatype"].get<std::string>().length();
 
 	  std::cout << "" << std::endl;
 	  std::cout << j << std::endl;
+		std::cout << "" << std::endl;
+
+		//char* msg = new char[1024];
+		//msg = &j.dump()[0u];
 
 
 		//payload = mp.get_usr_msg();
-
-		char* msg = new char[1024];
-		msg = &j.dump()[0u];
 		mqtt::delivery_token_ptr pubtok;
-		pubtok = client.publish(TOPIC, msg, strlen(msg), QOS, false);
+		pubtok = client.publish(TOPIC, j.dump().c_str(), strlen(j.dump().c_str()), QOS, false);
 		std::cout << "SENDING MESSAGE..." << std::endl;
 		std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
 		std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;
