@@ -5,9 +5,12 @@
 
 using json = nlohmann::json;
 
+//DUMP JSON LIKE IN PYTHON
+//https://nlohmann.github.io/json/classnlohmann_1_1basic__json_a5adea76fedba9898d404fef8598aa663.html
+
 int main(int argc, char **argv) {
 
-  std::ifstream ifs("../config/message.json", std::ifstream::binary);
+  std::ifstream ifs("../config/message.json");
 
   if(!ifs.is_open()) {
     std::cout << "ERROR: Could not open file" << std::endl;
@@ -15,6 +18,7 @@ int main(int argc, char **argv) {
   }
 
   json j = json::parse(ifs);
+  ifs.close();
 
   std::cout << j << std::endl;
 
@@ -29,7 +33,7 @@ int main(int argc, char **argv) {
     length += j["data"]["payload"][i].get<std::string>().length();
   }
 
-  j["data"]["length"] = length + j["datatype"].get<std::string>().length();
+  j["data"]["length"] = length + j["data"]["function"].get<std::string>().length() + j["datatype"].get<std::string>().length();
 
   std::cout << "" << std::endl;
   std::cout << j << std::endl;

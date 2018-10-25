@@ -9,12 +9,20 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include <iostream>
+#include <sstream>
+#include <fstream>
+#include "header/json.hpp"
 #include <cstdlib>
 #include <string>
 #include <chrono>
 #include <cstring>
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
+
+#include <typeinfo>
+
+
+using json = nlohmann::json;
 
 //ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 
@@ -98,10 +106,40 @@ int main(int argc, char **argv) {
 		std::cout << "  ...OK" << std::endl;
 
 
-		payload = mp.get_usr_msg();
+		/* JSON TEST */
+		std::ifstream ifs("../config/message.json");
+		if(!ifs.is_open()) {
+	    std::cout << "ERROR: Could not open file" << std::endl;
+	    return false;
+	  }
+		json j = json::parse(ifs);
+		j["sender_id"] = "500";
+	  j["receiver_id"] = "202";
+	  j["datatype"] = "strg";
+	  j["data"]["function"] = "roadMap";
+		ifs.close();
+
+	  int length = 0;
+	  for (int i =0; i< j["data"]["payload"].size();i++) {
+	    j["data"]["payload"][i] = "1";
+	    length += j["data"]["payload"][i].get<std::string>().length();
+	  }
+
+	  j["data"]["length"] = length + j["data"]["function"].get<std::string>().length() + j["datatype"].get<std::string>().length();
+
+	  std::cout << "" << std::endl;
+	  std::cout << j << std::endl;
+
+
+		//payload = mp.get_usr_msg();
+
+		char* msg = new char[1024];
+		msg = &j.dump()[0u];
 		mqtt::delivery_token_ptr pubtok;
-		pubtok = client.publish(TOPIC, payload, strlen(payload), QOS, false);
-		std::cout << "\nSending message..." << std::endl;
+		pubtok = client.publish(TOPIC, msg, strlen(msg), QOS, false);
+		std::cout << "SENDING MESSAGE..." << std::endl;
+		std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
+		std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;
 		pubtok->wait_for(TIMEOUT);
 		std::cout << "  ...OK" << std::endl;
 
@@ -118,7 +156,6 @@ int main(int argc, char **argv) {
 				std::cerr << exc.what() << std::endl;
 				return 1;
 			}
-
 	}
 	catch (const mqtt::exception& exc) {
 		std::cerr << exc.what() << std::endl;
