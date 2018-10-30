@@ -60,6 +60,43 @@ CMAKE_SOURCE_DIR = /home/thomas-ubuntu/Desktop/IDOS
 CMAKE_BINARY_DIR = /home/thomas-ubuntu/Desktop/IDOS/build
 
 #=============================================================================
+# Target rules for target CMakeFiles/testfile.dir
+
+# All Build rule for target.
+CMakeFiles/testfile.dir/all:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/depend
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=9,10 "Built target testfile"
+.PHONY : CMakeFiles/testfile.dir/all
+
+# Include target in all.
+all: CMakeFiles/testfile.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/testfile.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testfile.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
+.PHONY : CMakeFiles/testfile.dir/rule
+
+# Convenience name for target.
+testfile: CMakeFiles/testfile.dir/rule
+
+.PHONY : testfile
+
+# clean rule for target.
+CMakeFiles/testfile.dir/clean:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/clean
+.PHONY : CMakeFiles/testfile.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/testfile.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/async_sub.dir
 
 # All Build rule for target.
@@ -171,39 +208,39 @@ clean: CMakeFiles/gateway_mqtt.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/testfile.dir
+# Target rules for target CMakeFiles/message.dir
 
 # All Build rule for target.
-CMakeFiles/testfile.dir/all:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/depend
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=7,8 "Built target testfile"
-.PHONY : CMakeFiles/testfile.dir/all
+CMakeFiles/message.dir/all:
+	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/depend
+	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=7,8 "Built target message"
+.PHONY : CMakeFiles/message.dir/all
 
 # Include target in all.
-all: CMakeFiles/testfile.dir/all
+all: CMakeFiles/message.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/testfile.dir/rule: cmake_check_build_system
+CMakeFiles/message.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testfile.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/message.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
-.PHONY : CMakeFiles/testfile.dir/rule
+.PHONY : CMakeFiles/message.dir/rule
 
 # Convenience name for target.
-testfile: CMakeFiles/testfile.dir/rule
+message: CMakeFiles/message.dir/rule
 
-.PHONY : testfile
-
-# clean rule for target.
-CMakeFiles/testfile.dir/clean:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/clean
-.PHONY : CMakeFiles/testfile.dir/clean
+.PHONY : message
 
 # clean rule for target.
-clean: CMakeFiles/testfile.dir/clean
+CMakeFiles/message.dir/clean:
+	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/clean
+.PHONY : CMakeFiles/message.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/message.dir/clean
 
 .PHONY : clean
 

@@ -11,11 +11,11 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "header/json.hpp"
 #include <cstdlib>
 #include <string>
 #include <chrono>
 #include <cstring>
+#include "header/json.hpp"
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
 
@@ -51,7 +51,7 @@ public:
 	}
 };
 
-
+//to be removed
 class message_processing {
 public:
 	char* get_usr_msg() {
@@ -62,11 +62,6 @@ public:
 	}
 };
 
-
-//inter process comm = named pipes ?? (fifo)
-//http://www.raspberry-projects.com/pi/programming-in-c/pipes/named-pipes-fifos
-//ou ultra simple sub/pub python
-//ou sockets
 
 
 int main(int argc, char **argv) {

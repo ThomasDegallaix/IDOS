@@ -1,6 +1,7 @@
 /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/edit_cache.dir
 /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/rebuild_cache.dir
+/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/testfile.dir
 /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/async_sub.dir
 /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/async_pub.dir
 /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/gateway_mqtt.dir
-/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/testfile.dir
+/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/message.dir

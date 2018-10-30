@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named testfile
+
+# Build rule for target.
+testfile: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testfile
+.PHONY : testfile
+
+# fast build rule for target.
+testfile/fast:
+	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
+.PHONY : testfile/fast
+
+#=============================================================================
 # Target rules for targets named async_sub
 
 # Build rule for target.
@@ -150,17 +163,17 @@ gateway_mqtt/fast:
 .PHONY : gateway_mqtt/fast
 
 #=============================================================================
-# Target rules for targets named testfile
+# Target rules for targets named message
 
 # Build rule for target.
-testfile: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testfile
-.PHONY : testfile
+message: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 message
+.PHONY : message
 
 # fast build rule for target.
-testfile/fast:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
-.PHONY : testfile/fast
+message/fast:
+	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/build
+.PHONY : message/fast
 
 async_pub.o: async_pub.cpp.o
 
@@ -243,6 +256,33 @@ gateway_mqtt.cpp.s:
 	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.s
 .PHONY : gateway_mqtt.cpp.s
 
+message.o: message.cpp.o
+
+.PHONY : message.o
+
+# target to build an object file
+message.cpp.o:
+	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/message.cpp.o
+.PHONY : message.cpp.o
+
+message.i: message.cpp.i
+
+.PHONY : message.i
+
+# target to preprocess a source file
+message.cpp.i:
+	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/message.cpp.i
+.PHONY : message.cpp.i
+
+message.s: message.cpp.s
+
+.PHONY : message.s
+
+# target to generate assembly for a file
+message.cpp.s:
+	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/message.cpp.s
+.PHONY : message.cpp.s
+
 testfiles/testplace.o: testfiles/testplace.cpp.o
 
 .PHONY : testfiles/testplace.o
@@ -278,10 +318,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... testfile"
 	@echo "... async_sub"
 	@echo "... async_pub"
 	@echo "... gateway_mqtt"
-	@echo "... testfile"
+	@echo "... message"
 	@echo "... async_pub.o"
 	@echo "... async_pub.i"
 	@echo "... async_pub.s"
@@ -291,6 +332,9 @@ help:
 	@echo "... gateway_mqtt.o"
 	@echo "... gateway_mqtt.i"
 	@echo "... gateway_mqtt.s"
+	@echo "... message.o"
+	@echo "... message.i"
+	@echo "... message.s"
 	@echo "... testfiles/testplace.o"
 	@echo "... testfiles/testplace.i"
 	@echo "... testfiles/testplace.s"
