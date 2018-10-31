@@ -14,11 +14,13 @@ find_library(PAHO_C_LIB NAMES libpaho-mqtt3a.so HINTS "${CMAKE_PREFIX_PATH}" REQ
 find_library(PAHO_CPP_LIB NAMES libpaho-mqttpp3.so HINTS "${CMAKE_PREFIX_PATH}" REQUIRED)
 find_library(YAML_CPP_LIB NAMES libyaml-cpp.so HINTS "${CMAKE_PREFIX_PATH}" REQUIRED)
 
+add_library(messageFunctions msg_manager.cpp)
+
 ## binary files
+#add_executable(msg_manager msg_manager.cpp)
 add_executable(async_sub async_sub.cpp)
 add_executable(async_pub async_pub.cpp)
 add_executable(gateway_mqtt gateway_mqtt.cpp)
-add_executable(message message.cpp)
 add_executable(testfile testfiles/testplace.cpp)
 
 ## link binaries
@@ -29,7 +31,8 @@ target_link_libraries(async_sub
 target_link_libraries(async_pub
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
-    ${YAML_CPP_LIB})
+    ${YAML_CPP_LIB}
+    messageFunctions)
 target_link_libraries(gateway_mqtt
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}

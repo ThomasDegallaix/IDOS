@@ -93,6 +93,7 @@ async_pub: CMakeFiles/async_pub.dir/build.make
 async_pub: /usr/local/lib/libpaho-mqtt3a.so
 async_pub: /usr/local/lib/libpaho-mqttpp3.so
 async_pub: /usr/local/lib/libyaml-cpp.so
+async_pub: libmessageFunctions.a
 async_pub: CMakeFiles/async_pub.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable async_pub"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/async_pub.dir/link.txt --verbose=$(VERBOSE)

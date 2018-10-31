@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmessageFunctions.a  CMakeFiles/messageFunctions.dir/msg_manager.cpp.o
+/usr/bin/ranlib libmessageFunctions.a

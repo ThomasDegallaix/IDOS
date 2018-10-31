@@ -1,6 +1,6 @@
 /* Definition of all the methods used to manage idos messages */
 
-#include "header/message.h"
+#include "header/msg_manager.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -10,48 +10,49 @@ using json = nlohmann::json;
 
 
 /**********************************************setters**********************************************/
-void message::set_senderId(json &msg, int sender_id) {
+void msg_manager::set_senderId(json &msg, int sender_id) {
   msg["sender_id"] = sender_id;
 }
 
-void message::set_receiverdId(json &msg, int receiver_id) {
+void msg_manager::set_receiverdId(json &msg, int receiver_id) {
   msg["receiver_id"] = receiver_id;
 }
 
-void message::set_function(json &msg, std::string function) {
+void msg_manager::set_function(json &msg, std::string function) {
   msg["data"]["function"] = function;
 }
 
-void message::set_payload(json &msg, std::vector<std::string> payload) {
+void msg_manager::set_payload(json &msg, std::vector<std::string> payload) {
   clear_payload(msg);
-  //work to do
   for (int i = 0; i < msg["data"]["payload"].size(); i++) {
     msg["data"]["payload"][i] = payload.at(i);
   }
 }
 
-void message::set_message(json &msg, int sender_id, int receiver_id, std::string function, std::vector<std::string> payload) {
+void msg_manager::set_message(json &msg, int sender_id, int receiver_id, std::string function, std::vector<std::string> payload) {
+  clear_message(msg);
   set_senderId(msg, sender_id);
   set_receiverdId(msg, receiver_id);
   set_function(msg, function);
   set_payload(msg, payload);
 }
 
+
 /**********************************************methods**********************************************/
-void message::clear_message(json &msg) {
+void msg_manager::clear_message(json &msg) {
   set_senderId(msg, 0);
   set_receiverdId(msg, 0);
   set_function(msg, " ");
   clear_payload(msg);
 }
 
-void message::clear_payload(json &msg) {
+void msg_manager::clear_payload(json &msg) {
   for(int i = 0; i < msg["data"]["payload"].size(); i++) {
     msg["data"]["payload"][i] = " ";
   }
 }
 
-void message::print_message(json msg) {
+void msg_manager::print_message(json msg) {
   std::cout << "******* INFOS ********" << std::endl;
   std::cout << "[SENDER_ID]: " << msg["sender_id"] << std::endl;
   std::cout << "[RECEIVER_ID]: " << msg["receiver_id"] << std::endl;
@@ -61,7 +62,7 @@ void message::print_message(json msg) {
   std::cout << "\n**********************" << std::endl;
 }
 
-void message::print_payload(json msg) {
+void msg_manager::print_payload(json msg) {
   std::cout << "[ " ;
   for (auto i = msg["data"]["payload"].begin(); i != msg["data"]["payload"].end(); i++) {
     std::cout << *i << ' ';
@@ -69,12 +70,12 @@ void message::print_payload(json msg) {
   std::cout << ']' ;
 }
 
-message::message() {};
+msg_manager::msg_manager() {}
 
-
+/*
 int main(int argc, char **argv) {
 
-  message msg;
+  msg_manager msg;
 
   std::ifstream ifs("../config/message.json");
   if(!ifs.is_open()) {
@@ -105,3 +106,4 @@ int main(int argc, char **argv) {
 
   return 0;
 }
+*/

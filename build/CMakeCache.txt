@@ -183,6 +183,9 @@ gateway_mqtt_BINARY_DIR:STATIC=/home/thomas-ubuntu/Desktop/IDOS/build
 //Value Computed by CMake
 gateway_mqtt_SOURCE_DIR:STATIC=/home/thomas-ubuntu/Desktop/IDOS
 
+//Dependencies for target
+messageFunctions_LIB_DEPENDS:STATIC=
+
 //Value Computed by CMake
 mqtt_gateway_BINARY_DIR:STATIC=/home/thomas-ubuntu/Desktop/IDOS/build
 

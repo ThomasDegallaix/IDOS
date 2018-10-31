@@ -3,4 +3,5 @@
 
 CMakeFiles/async_pub.dir/async_pub.cpp.o: ../async_pub.cpp
 CMakeFiles/async_pub.dir/async_pub.cpp.o: ../header/json.hpp
+CMakeFiles/async_pub.dir/async_pub.cpp.o: ../header/msg_manager.h
 

@@ -124,6 +124,19 @@ testfile/fast:
 .PHONY : testfile/fast
 
 #=============================================================================
+# Target rules for targets named messageFunctions
+
+# Build rule for target.
+messageFunctions: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 messageFunctions
+.PHONY : messageFunctions
+
+# fast build rule for target.
+messageFunctions/fast:
+	$(MAKE) -f CMakeFiles/messageFunctions.dir/build.make CMakeFiles/messageFunctions.dir/build
+.PHONY : messageFunctions/fast
+
+#=============================================================================
 # Target rules for targets named async_sub
 
 # Build rule for target.
@@ -161,19 +174,6 @@ gateway_mqtt: cmake_check_build_system
 gateway_mqtt/fast:
 	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/build
 .PHONY : gateway_mqtt/fast
-
-#=============================================================================
-# Target rules for targets named message
-
-# Build rule for target.
-message: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 message
-.PHONY : message
-
-# fast build rule for target.
-message/fast:
-	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/build
-.PHONY : message/fast
 
 async_pub.o: async_pub.cpp.o
 
@@ -256,32 +256,32 @@ gateway_mqtt.cpp.s:
 	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.s
 .PHONY : gateway_mqtt.cpp.s
 
-message.o: message.cpp.o
+msg_manager.o: msg_manager.cpp.o
 
-.PHONY : message.o
+.PHONY : msg_manager.o
 
 # target to build an object file
-message.cpp.o:
-	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/message.cpp.o
-.PHONY : message.cpp.o
+msg_manager.cpp.o:
+	$(MAKE) -f CMakeFiles/messageFunctions.dir/build.make CMakeFiles/messageFunctions.dir/msg_manager.cpp.o
+.PHONY : msg_manager.cpp.o
 
-message.i: message.cpp.i
+msg_manager.i: msg_manager.cpp.i
 
-.PHONY : message.i
+.PHONY : msg_manager.i
 
 # target to preprocess a source file
-message.cpp.i:
-	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/message.cpp.i
-.PHONY : message.cpp.i
+msg_manager.cpp.i:
+	$(MAKE) -f CMakeFiles/messageFunctions.dir/build.make CMakeFiles/messageFunctions.dir/msg_manager.cpp.i
+.PHONY : msg_manager.cpp.i
 
-message.s: message.cpp.s
+msg_manager.s: msg_manager.cpp.s
 
-.PHONY : message.s
+.PHONY : msg_manager.s
 
 # target to generate assembly for a file
-message.cpp.s:
-	$(MAKE) -f CMakeFiles/message.dir/build.make CMakeFiles/message.dir/message.cpp.s
-.PHONY : message.cpp.s
+msg_manager.cpp.s:
+	$(MAKE) -f CMakeFiles/messageFunctions.dir/build.make CMakeFiles/messageFunctions.dir/msg_manager.cpp.s
+.PHONY : msg_manager.cpp.s
 
 testfiles/testplace.o: testfiles/testplace.cpp.o
 
@@ -319,10 +319,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... testfile"
+	@echo "... messageFunctions"
 	@echo "... async_sub"
 	@echo "... async_pub"
 	@echo "... gateway_mqtt"
-	@echo "... message"
 	@echo "... async_pub.o"
 	@echo "... async_pub.i"
 	@echo "... async_pub.s"
@@ -332,9 +332,9 @@ help:
 	@echo "... gateway_mqtt.o"
 	@echo "... gateway_mqtt.i"
 	@echo "... gateway_mqtt.s"
-	@echo "... message.o"
-	@echo "... message.i"
-	@echo "... message.s"
+	@echo "... msg_manager.o"
+	@echo "... msg_manager.i"
+	@echo "... msg_manager.s"
 	@echo "... testfiles/testplace.o"
 	@echo "... testfiles/testplace.i"
 	@echo "... testfiles/testplace.s"

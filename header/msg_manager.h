@@ -1,19 +1,19 @@
 /* Inlude guards */
-#ifndef IDOS_MSG_H
-#define IDOS_MSG_H
+#ifndef MSG_MANAGER_H
+#define MSG_MANAGER_H
 
 #include "json.hpp"
 #include <vector>
 #include <string>
 
-class message {
+class msg_manager {
 
 public:
 
   /* constructor */
-  message();
+  msg_manager();
   /* destructor */
-  ~message() {}
+  ~msg_manager(){}
 
   /* setters */
   void set_senderId(nlohmann::json &msg, int sender_id);

@@ -15,6 +15,8 @@
 #include <string>
 #include <chrono>
 #include <cstring>
+#include <vector>
+#include "header/msg_manager.h"
 #include "header/json.hpp"
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
@@ -23,7 +25,7 @@
 using json = nlohmann::json;
 
 //ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
-
+msg_manager m;
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
@@ -51,23 +53,9 @@ public:
 	}
 };
 
-//to be removed
-class message_processing {
-public:
-	char* get_usr_msg() {
-		char* msg = new char[1024];
-		std::cout << "\nWrite your message:\n" << std::endl;
-		std::cin >> msg;
-		return msg;
-	}
-};
-
-
 
 int main(int argc, char **argv) {
 
-	//char* payload;
-	//message_processing mp;
 
 	std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
 	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
@@ -106,27 +94,17 @@ int main(int argc, char **argv) {
 	    std::cout << "ERROR: Could not open file" << std::endl;
 	    return false;
 	  }
-		json j = json::parse(ifs);
+		json idos_msg = json::parse(ifs);
 		ifs.close();
-		j["sender_id"] = "500";
-	  j["receiver_id"] = "202";
-	  j["data"]["function"] = "roadMap";
 
-	  for (int i =0; i< j["data"]["payload"].size();i++) {
-	    j["data"]["payload"][i] = "1";
-	  }
+		std::vector<std::string> payload {"0","1","2","3","4","5","6","7"};
 
-	  std::cout << "" << std::endl;
-	  std::cout << j << std::endl;
-		std::cout << "" << std::endl;
-
-		//char* msg = new char[1024];
-		//msg = &j.dump()[0u];
+		m.set_message(idos_msg,500,202,"roadMap",payload);
+		m.print_message(idos_msg);
 
 
-		//payload = mp.get_usr_msg();
 		mqtt::delivery_token_ptr pubtok;
-		pubtok = client.publish(TOPIC, j.dump().c_str(), strlen(j.dump().c_str()), QOS, false);
+		pubtok = client.publish(TOPIC, idos_msg.dump().c_str(), strlen(idos_msg.dump().c_str()), QOS, false);
 		std::cout << "SENDING MESSAGE..." << std::endl;
 		std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
 		std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;
@@ -151,8 +129,6 @@ int main(int argc, char **argv) {
 		std::cerr << exc.what() << std::endl;
 		return 1;
 	}
-
-
 
 
   return 0;
