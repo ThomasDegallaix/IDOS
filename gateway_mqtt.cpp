@@ -2,7 +2,8 @@
 * Asynchronous mqtt subscriber/publisher using SSL *
 *         using the paho mqtt cpp library          *
 * * * * * * * * * * * * * * * * *    * * * * * * * */
-
+#include <sstream>
+#include <fstream>
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -10,10 +11,12 @@
 #include <cctype>
 #include <thread>
 #include <chrono>
+#include "header/msg_manager.h"
+#include "header/json.hpp"
 #include "mqtt/async_client.h" //include almost the whole mqtt library
 #include "yaml-cpp/yaml.h"
 
-/* TODO */
+/* TODO GLOBAL*/
 // configuration de la gateway selon le robot
 // chargement des paramètres du robot
 // communication inter process => MPI/socket (python <=> C++)
@@ -24,6 +27,15 @@
 // Repenser l'architecture du dossier (création d'un dossier pour les execs, dossier avec libraires, etc)
 // documentation: Sources, fonctionnement, tuto d'utilisation, tuto d'installation
 // Schéma de la structure de l'appli (dossiers fichiers etc)
+
+
+/*TODO ACTUEL*/
+//ajout des sockets
+//callback socket pour la publication
+//envoi via socket de message dans le callback des messages mqtt
+
+using json = nlohmann::json;
+msg_manager m;
 
 //LOAD DIFFERENT CONFIGURATIONS DIRECLTY AT THE BEGINNING OF MAIN
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
@@ -42,9 +54,9 @@ const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 
 
 
-//SOMETHING IS WRONG FOR THE MOMENT: SENT AT INITIALIZATION
+//WARNING: SENT AT INITIALIZATION
 //replace "server" by something generic
-const std::string LWT_PAYLOAD = config["clients"]["server"]["name"].as<std::string>() + std::to_string(CLIENT_ID) + " is now offline...";
+//const std::string LWT_PAYLOAD = config["clients"]["server"]["name"].as<std::string>() + std::to_string(CLIENT_ID) + " is now offline...";
 
 
 
@@ -160,6 +172,8 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
 
+    auto json_msg = m.deserialization(msg->to_string().c_str());
+
 	}
 
   /* ACK */
@@ -169,22 +183,22 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 	}
 
 public:
-  callback(mqtt::async_client& cli, mqtt::connect_options& connOpts): nretry_(0), cli_(cli), connOpts_(connOpts), subListener_("Subscription") {}
+  callback(mqtt::async_client& cli, mqtt::connect_options& connOpts): nretry_(N_RETRY_ATTEMPTS), cli_(cli), connOpts_(connOpts), subListener_("Subscription") {}
 
 };
 
 
 int main(int argc, char **argv) {
 
-  std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
+  std::cout << "\nInitializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
   std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
   mqtt::async_client client(SERVER_ADDRESS, CLIENT);
 
   mqtt::ssl_options sslopts;
   sslopts.set_trust_store("../certs/ca.crt");
 
-  mqtt::message willmsg(TOPIC, LWT_PAYLOAD, 1, true);
-	mqtt::will_options will(willmsg);
+  //mqtt::message willmsg(TOPIC, LWT_PAYLOAD, 1, true);
+	//mqtt::will_options will(willmsg);
 
   //set_keep_alive_interval = max time should pass between client and serv without communication
   //set_clean_session = Sets whether the server should remember state for the client across reconnects
@@ -194,13 +208,23 @@ int main(int argc, char **argv) {
 	connOpts.set_user_name("IDOSdevice1");
 	connOpts.set_password("TrYaGA1N");
   connOpts.set_ssl(sslopts);
-  connOpts.set_will(will);
+  //connOpts.set_will(will);
 
 	//Set an object as callbacks for the client
 	callback cb(client, connOpts);
 	client.set_callback(cb);
 
-  std::cout << "Initialization: OK" << std::endl;
+  /* JSON messages */
+  std::cout << "Opening ressources..." << std::endl;
+  std::ifstream ifs("../config/message.json");
+  if(!ifs.is_open()) {
+    std::cout << "ERROR: Could not open message.json file" << std::endl;
+    return false;
+  }
+  json json_msg = json::parse(ifs);
+  ifs.close();
+
+  std::cout << "Initialization: OK\n" << std::endl;
 
   // Start the connection.
 	// When completed, the callback will subscribe to topic.

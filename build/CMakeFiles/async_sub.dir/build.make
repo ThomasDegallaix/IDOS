@@ -57,38 +57,38 @@ include CMakeFiles/async_sub.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/async_sub.dir/flags.make
 
-CMakeFiles/async_sub.dir/async_sub.cpp.o: CMakeFiles/async_sub.dir/flags.make
-CMakeFiles/async_sub.dir/async_sub.cpp.o: ../async_sub.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/async_sub.dir/async_sub.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/async_sub.dir/async_sub.cpp.o -c /home/thomas-ubuntu/Desktop/IDOS/async_sub.cpp
+CMakeFiles/async_sub.dir/examples/async_sub.cpp.o: CMakeFiles/async_sub.dir/flags.make
+CMakeFiles/async_sub.dir/examples/async_sub.cpp.o: ../examples/async_sub.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/async_sub.dir/examples/async_sub.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/async_sub.dir/examples/async_sub.cpp.o -c /home/thomas-ubuntu/Desktop/IDOS/examples/async_sub.cpp
 
-CMakeFiles/async_sub.dir/async_sub.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/async_sub.dir/async_sub.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas-ubuntu/Desktop/IDOS/async_sub.cpp > CMakeFiles/async_sub.dir/async_sub.cpp.i
+CMakeFiles/async_sub.dir/examples/async_sub.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/async_sub.dir/examples/async_sub.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas-ubuntu/Desktop/IDOS/examples/async_sub.cpp > CMakeFiles/async_sub.dir/examples/async_sub.cpp.i
 
-CMakeFiles/async_sub.dir/async_sub.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/async_sub.dir/async_sub.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas-ubuntu/Desktop/IDOS/async_sub.cpp -o CMakeFiles/async_sub.dir/async_sub.cpp.s
+CMakeFiles/async_sub.dir/examples/async_sub.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/async_sub.dir/examples/async_sub.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas-ubuntu/Desktop/IDOS/examples/async_sub.cpp -o CMakeFiles/async_sub.dir/examples/async_sub.cpp.s
 
-CMakeFiles/async_sub.dir/async_sub.cpp.o.requires:
+CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.requires:
 
-.PHONY : CMakeFiles/async_sub.dir/async_sub.cpp.o.requires
+.PHONY : CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.requires
 
-CMakeFiles/async_sub.dir/async_sub.cpp.o.provides: CMakeFiles/async_sub.dir/async_sub.cpp.o.requires
-	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/async_sub.cpp.o.provides.build
-.PHONY : CMakeFiles/async_sub.dir/async_sub.cpp.o.provides
+CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.provides: CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.requires
+	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.provides.build
+.PHONY : CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.provides
 
-CMakeFiles/async_sub.dir/async_sub.cpp.o.provides.build: CMakeFiles/async_sub.dir/async_sub.cpp.o
+CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.provides.build: CMakeFiles/async_sub.dir/examples/async_sub.cpp.o
 
 
 # Object files for target async_sub
 async_sub_OBJECTS = \
-"CMakeFiles/async_sub.dir/async_sub.cpp.o"
+"CMakeFiles/async_sub.dir/examples/async_sub.cpp.o"
 
 # External object files for target async_sub
 async_sub_EXTERNAL_OBJECTS =
 
-async_sub: CMakeFiles/async_sub.dir/async_sub.cpp.o
+async_sub: CMakeFiles/async_sub.dir/examples/async_sub.cpp.o
 async_sub: CMakeFiles/async_sub.dir/build.make
 async_sub: /usr/local/lib/libpaho-mqtt3a.so
 async_sub: /usr/local/lib/libpaho-mqttpp3.so
@@ -103,7 +103,7 @@ CMakeFiles/async_sub.dir/build: async_sub
 
 .PHONY : CMakeFiles/async_sub.dir/build
 
-CMakeFiles/async_sub.dir/requires: CMakeFiles/async_sub.dir/async_sub.cpp.o.requires
+CMakeFiles/async_sub.dir/requires: CMakeFiles/async_sub.dir/examples/async_sub.cpp.o.requires
 
 .PHONY : CMakeFiles/async_sub.dir/requires
 

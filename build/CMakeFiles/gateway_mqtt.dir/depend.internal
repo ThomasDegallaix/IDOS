@@ -3,3 +3,5 @@
 
 CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.o
  /home/thomas-ubuntu/Desktop/IDOS/gateway_mqtt.cpp
+ /home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
+ /home/thomas-ubuntu/Desktop/IDOS/header/msg_manager.h

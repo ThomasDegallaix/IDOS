@@ -175,59 +175,59 @@ gateway_mqtt/fast:
 	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/build
 .PHONY : gateway_mqtt/fast
 
-async_pub.o: async_pub.cpp.o
+examples/async_pub.o: examples/async_pub.cpp.o
 
-.PHONY : async_pub.o
-
-# target to build an object file
-async_pub.cpp.o:
-	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.o
-.PHONY : async_pub.cpp.o
-
-async_pub.i: async_pub.cpp.i
-
-.PHONY : async_pub.i
-
-# target to preprocess a source file
-async_pub.cpp.i:
-	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.i
-.PHONY : async_pub.cpp.i
-
-async_pub.s: async_pub.cpp.s
-
-.PHONY : async_pub.s
-
-# target to generate assembly for a file
-async_pub.cpp.s:
-	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.s
-.PHONY : async_pub.cpp.s
-
-async_sub.o: async_sub.cpp.o
-
-.PHONY : async_sub.o
+.PHONY : examples/async_pub.o
 
 # target to build an object file
-async_sub.cpp.o:
-	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/async_sub.cpp.o
-.PHONY : async_sub.cpp.o
+examples/async_pub.cpp.o:
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/examples/async_pub.cpp.o
+.PHONY : examples/async_pub.cpp.o
 
-async_sub.i: async_sub.cpp.i
+examples/async_pub.i: examples/async_pub.cpp.i
 
-.PHONY : async_sub.i
+.PHONY : examples/async_pub.i
 
 # target to preprocess a source file
-async_sub.cpp.i:
-	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/async_sub.cpp.i
-.PHONY : async_sub.cpp.i
+examples/async_pub.cpp.i:
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/examples/async_pub.cpp.i
+.PHONY : examples/async_pub.cpp.i
 
-async_sub.s: async_sub.cpp.s
+examples/async_pub.s: examples/async_pub.cpp.s
 
-.PHONY : async_sub.s
+.PHONY : examples/async_pub.s
 
 # target to generate assembly for a file
-async_sub.cpp.s:
-	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/async_sub.cpp.s
-.PHONY : async_sub.cpp.s
+examples/async_pub.cpp.s:
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/examples/async_pub.cpp.s
+.PHONY : examples/async_pub.cpp.s
+
+examples/async_sub.o: examples/async_sub.cpp.o
+
+.PHONY : examples/async_sub.o
+
+# target to build an object file
+examples/async_sub.cpp.o:
+	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/examples/async_sub.cpp.o
+.PHONY : examples/async_sub.cpp.o
+
+examples/async_sub.i: examples/async_sub.cpp.i
+
+.PHONY : examples/async_sub.i
+
+# target to preprocess a source file
+examples/async_sub.cpp.i:
+	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/examples/async_sub.cpp.i
+.PHONY : examples/async_sub.cpp.i
+
+examples/async_sub.s: examples/async_sub.cpp.s
+
+.PHONY : examples/async_sub.s
+
+# target to generate assembly for a file
+examples/async_sub.cpp.s:
+	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/examples/async_sub.cpp.s
+.PHONY : examples/async_sub.cpp.s
 
 gateway_mqtt.o: gateway_mqtt.cpp.o
 
@@ -323,12 +323,12 @@ help:
 	@echo "... async_sub"
 	@echo "... async_pub"
 	@echo "... gateway_mqtt"
-	@echo "... async_pub.o"
-	@echo "... async_pub.i"
-	@echo "... async_pub.s"
-	@echo "... async_sub.o"
-	@echo "... async_sub.i"
-	@echo "... async_sub.s"
+	@echo "... examples/async_pub.o"
+	@echo "... examples/async_pub.i"
+	@echo "... examples/async_pub.s"
+	@echo "... examples/async_sub.o"
+	@echo "... examples/async_sub.i"
+	@echo "... examples/async_sub.s"
 	@echo "... gateway_mqtt.o"
 	@echo "... gateway_mqtt.i"
 	@echo "... gateway_mqtt.s"

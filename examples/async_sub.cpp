@@ -15,8 +15,8 @@
 #include <cctype>
 #include <thread>
 #include <chrono>
-#include "header/msg_manager.h"
-#include "header/json.hpp"
+#include "../header/msg_manager.h"
+#include "../header/json.hpp"
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
 
