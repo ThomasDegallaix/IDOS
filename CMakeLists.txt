@@ -27,7 +27,8 @@ add_executable(testfile testfiles/testplace.cpp)
 target_link_libraries(async_sub
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
-    ${YAML_CPP_LIB})
+    ${YAML_CPP_LIB}
+    messageFunctions)
 target_link_libraries(async_pub
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}

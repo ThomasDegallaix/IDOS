@@ -10,68 +10,81 @@ using json = nlohmann::json;
 
 
 /**********************************************setters**********************************************/
-void msg_manager::set_senderId(json &msg, int sender_id) {
-  msg["sender_id"] = sender_id;
+void msg_manager::set_senderId(json &json_msg, int sender_id) {
+  json_msg["sender_id"] = sender_id;
 }
 
-void msg_manager::set_receiverdId(json &msg, int receiver_id) {
-  msg["receiver_id"] = receiver_id;
+void msg_manager::set_receiverdId(json &json_msg, int receiver_id) {
+  json_msg["receiver_id"] = receiver_id;
 }
 
-void msg_manager::set_function(json &msg, std::string function) {
-  msg["data"]["function"] = function;
+void msg_manager::set_function(json &json_msg, std::string function) {
+  json_msg["data"]["function"] = function;
 }
 
-void msg_manager::set_payload(json &msg, std::vector<std::string> payload) {
-  clear_payload(msg);
-  for (int i = 0; i < msg["data"]["payload"].size(); i++) {
-    msg["data"]["payload"][i] = payload.at(i);
+void msg_manager::set_payload(json &json_msg, std::vector<std::string> payload) {
+  clear_payload(json_msg);
+  for (int i = 0; i < json_msg["data"]["payload"].size(); i++) {
+    json_msg["data"]["payload"][i] = payload.at(i);
   }
 }
 
-void msg_manager::set_message(json &msg, int sender_id, int receiver_id, std::string function, std::vector<std::string> payload) {
-  clear_message(msg);
-  set_senderId(msg, sender_id);
-  set_receiverdId(msg, receiver_id);
-  set_function(msg, function);
-  set_payload(msg, payload);
+void msg_manager::set_message(json &json_msg, int sender_id, int receiver_id, std::string function, std::vector<std::string> payload) {
+  clear_message(json_msg);
+  set_senderId(json_msg, sender_id);
+  set_receiverdId(json_msg, receiver_id);
+  set_function(json_msg, function);
+  set_payload(json_msg, payload);
 }
 
 
-/**********************************************methods**********************************************/
-void msg_manager::clear_message(json &msg) {
-  set_senderId(msg, 0);
-  set_receiverdId(msg, 0);
-  set_function(msg, " ");
-  clear_payload(msg);
+/**********************************************message management**********************************************/
+void msg_manager::clear_message(json &json_msg) {
+  set_senderId(json_msg, 0);
+  set_receiverdId(json_msg, 0);
+  set_function(json_msg, " ");
+  clear_payload(json_msg);
 }
 
-void msg_manager::clear_payload(json &msg) {
-  for(int i = 0; i < msg["data"]["payload"].size(); i++) {
-    msg["data"]["payload"][i] = " ";
+void msg_manager::clear_payload(json &json_msg) {
+  for(int i = 0; i < json_msg["data"]["payload"].size(); i++) {
+    json_msg["data"]["payload"][i] = " ";
   }
 }
 
-void msg_manager::print_message(json msg) {
+void msg_manager::print_message(json json_msg) {
   std::cout << "******* INFOS ********" << std::endl;
-  std::cout << "[SENDER_ID]: " << msg["sender_id"] << std::endl;
-  std::cout << "[RECEIVER_ID]: " << msg["receiver_id"] << std::endl;
-  std::cout << "[FUNCTION]: " << msg["data"]["function"] << std::endl;
+  std::cout << "[SENDER_ID]: " << json_msg["sender_id"] << std::endl;
+  std::cout << "[RECEIVER_ID]: " << json_msg["receiver_id"] << std::endl;
+  std::cout << "[FUNCTION]: " << json_msg["data"]["function"] << std::endl;
   std::cout << "[PAYLOAD]: ";
-  print_payload(msg);
+  print_payload(json_msg);
   std::cout << "\n**********************" << std::endl;
 }
 
-void msg_manager::print_payload(json msg) {
+void msg_manager::print_payload(json json_msg) {
   std::cout << "[ " ;
-  for (auto i = msg["data"]["payload"].begin(); i != msg["data"]["payload"].end(); i++) {
+  for (auto i = json_msg["data"]["payload"].begin(); i != json_msg["data"]["payload"].end(); i++) {
     std::cout << *i << ' ';
   }
   std::cout << ']' ;
 }
 
+std::string msg_manager::serialization(json json_msg) {
+  std::string string_msg = json_msg.dump();
+  return string_msg;
+}
+
+nlohmann::json msg_manager::deserialization(std::string string_msg) {
+  auto json_msg = json::parse(string_msg);
+  return json_msg;
+}
+
 msg_manager::msg_manager() {}
 
+
+
+/**********************************************Tests**********************************************/
 /*
 int main(int argc, char **argv) {
 

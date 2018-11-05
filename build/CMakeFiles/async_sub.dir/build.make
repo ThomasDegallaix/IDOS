@@ -93,6 +93,7 @@ async_sub: CMakeFiles/async_sub.dir/build.make
 async_sub: /usr/local/lib/libpaho-mqtt3a.so
 async_sub: /usr/local/lib/libpaho-mqttpp3.so
 async_sub: /usr/local/lib/libyaml-cpp.so
+async_sub: libmessageFunctions.a
 async_sub: CMakeFiles/async_sub.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable async_sub"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/async_sub.dir/link.txt --verbose=$(VERBOSE)

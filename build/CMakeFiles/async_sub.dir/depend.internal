@@ -3,3 +3,5 @@
 
 CMakeFiles/async_sub.dir/async_sub.cpp.o
  /home/thomas-ubuntu/Desktop/IDOS/async_sub.cpp
+ /home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
+ /home/thomas-ubuntu/Desktop/IDOS/header/msg_manager.h

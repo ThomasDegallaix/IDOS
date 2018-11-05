@@ -24,8 +24,9 @@
 
 using json = nlohmann::json;
 
-//ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 msg_manager m;
+
+//ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
@@ -33,7 +34,7 @@ const std::string CLIENT_NAME(config["clients"]["niryo"]["name"].as<std::string>
 const int CLIENT_ID(config["ID_entity"].as<int>());
 const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 
-const std::string LWT_PAYLOAD = config["clients"]["niryo"]["name"].as<std::string>() + std::to_string(CLIENT_ID) + " is now offline...";
+//const std::string LWT_PAYLOAD = config["clients"]["niryo"]["name"].as<std::string>() + std::to_string(CLIENT_ID) + " is now offline...";
 
 const int QOS = config["QOS"].as<int>();
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
@@ -65,13 +66,13 @@ int main(int argc, char **argv) {
 	mqtt::ssl_options sslopts;
 	sslopts.set_trust_store("../certs/ca.crt");
 
-	mqtt::message willmsg(TOPIC, LWT_PAYLOAD, 1, true);
-	mqtt::will_options will(willmsg);
+	//mqtt::message willmsg(TOPIC, LWT_PAYLOAD, 1, true);
+	//mqtt::will_options will(willmsg);
 
 	mqtt::connect_options connOpts;
 	connOpts.set_user_name("IDOSdevice2");
 	connOpts.set_password("TrYaGA1N");
-	connOpts.set_will(will);
+	//connOpts.set_will(will);
 	connOpts.set_ssl(sslopts);
 
 	callback cb;
@@ -87,24 +88,22 @@ int main(int argc, char **argv) {
 		std::cout << "  ...OK" << std::endl;
 
 
-		/* JSON TEST */
-
+		/* JSON messages */
 		std::ifstream ifs("../config/message.json");
 		if(!ifs.is_open()) {
 	    std::cout << "ERROR: Could not open file" << std::endl;
 	    return false;
 	  }
-		json idos_msg = json::parse(ifs);
+		json json_msg = json::parse(ifs);
 		ifs.close();
 
 		std::vector<std::string> payload {"0","1","2","3","4","5","6","7"};
 
-		m.set_message(idos_msg,500,202,"roadMap",payload);
-		m.print_message(idos_msg);
-
+		m.set_message(json_msg,500,202,"roadMap",payload);
+		m.print_message(json_msg);
 
 		mqtt::delivery_token_ptr pubtok;
-		pubtok = client.publish(TOPIC, idos_msg.dump().c_str(), strlen(idos_msg.dump().c_str()), QOS, false);
+		pubtok = client.publish(TOPIC, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
 		std::cout << "SENDING MESSAGE..." << std::endl;
 		std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
 		std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;

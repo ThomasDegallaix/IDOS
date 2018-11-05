@@ -15,8 +15,14 @@
 #include <cctype>
 #include <thread>
 #include <chrono>
-#include "mqtt/async_client.h" //include almost the whole mqtt library
+#include "header/msg_manager.h"
+#include "header/json.hpp"
+#include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
+
+using json = nlohmann::json;
+
+msg_manager m;
 
 //ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 
@@ -130,14 +136,19 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		reconnect();
 	}
 
-  /* Display informations when a message arrives */
+//Need socket or serial comm depending on the robot
+  /* Deserialization + Display informations when a message arrives */
   void message_arrived(mqtt::const_message_ptr msg) override {
 		std::cout << "Message arrived" << std::endl;
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
+
+    auto json_msg = m.deserialization(msg->to_string().c_str());
+    std::cout << "json_msg: ";
+    std::cout << json_msg << std::endl;
 	}
 
-  // What to do with it ??
+  // Not useful here
   void delivery_complete(mqtt::delivery_token_ptr token) override {}
 
 public:
@@ -181,6 +192,7 @@ int main(int argc, char **argv) {
 	}
 
 
+
 	// Just block till user tells us to quit.
 
 	while (std::tolower(std::cin.get()) != 'q');
@@ -196,9 +208,6 @@ int main(int argc, char **argv) {
 		std::cerr << exc.what() << std::endl;
 		return 1;
 	}
-
-
-  //NB: if you use flush it will print out the buffer even without endl
 
   return 0;
 }
