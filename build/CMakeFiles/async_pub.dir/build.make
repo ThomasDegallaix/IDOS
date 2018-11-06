@@ -57,38 +57,38 @@ include CMakeFiles/async_pub.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/async_pub.dir/flags.make
 
-CMakeFiles/async_pub.dir/examples/async_pub.cpp.o: CMakeFiles/async_pub.dir/flags.make
-CMakeFiles/async_pub.dir/examples/async_pub.cpp.o: ../examples/async_pub.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/async_pub.dir/examples/async_pub.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/async_pub.dir/examples/async_pub.cpp.o -c /home/thomas-ubuntu/Desktop/IDOS/examples/async_pub.cpp
+CMakeFiles/async_pub.dir/async_pub.cpp.o: CMakeFiles/async_pub.dir/flags.make
+CMakeFiles/async_pub.dir/async_pub.cpp.o: ../async_pub.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/async_pub.dir/async_pub.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/async_pub.dir/async_pub.cpp.o -c /home/thomas-ubuntu/Desktop/IDOS/async_pub.cpp
 
-CMakeFiles/async_pub.dir/examples/async_pub.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/async_pub.dir/examples/async_pub.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas-ubuntu/Desktop/IDOS/examples/async_pub.cpp > CMakeFiles/async_pub.dir/examples/async_pub.cpp.i
+CMakeFiles/async_pub.dir/async_pub.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/async_pub.dir/async_pub.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas-ubuntu/Desktop/IDOS/async_pub.cpp > CMakeFiles/async_pub.dir/async_pub.cpp.i
 
-CMakeFiles/async_pub.dir/examples/async_pub.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/async_pub.dir/examples/async_pub.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas-ubuntu/Desktop/IDOS/examples/async_pub.cpp -o CMakeFiles/async_pub.dir/examples/async_pub.cpp.s
+CMakeFiles/async_pub.dir/async_pub.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/async_pub.dir/async_pub.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas-ubuntu/Desktop/IDOS/async_pub.cpp -o CMakeFiles/async_pub.dir/async_pub.cpp.s
 
-CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.requires:
+CMakeFiles/async_pub.dir/async_pub.cpp.o.requires:
 
-.PHONY : CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.requires
+.PHONY : CMakeFiles/async_pub.dir/async_pub.cpp.o.requires
 
-CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.provides: CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.requires
-	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.provides.build
-.PHONY : CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.provides
+CMakeFiles/async_pub.dir/async_pub.cpp.o.provides: CMakeFiles/async_pub.dir/async_pub.cpp.o.requires
+	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.o.provides.build
+.PHONY : CMakeFiles/async_pub.dir/async_pub.cpp.o.provides
 
-CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.provides.build: CMakeFiles/async_pub.dir/examples/async_pub.cpp.o
+CMakeFiles/async_pub.dir/async_pub.cpp.o.provides.build: CMakeFiles/async_pub.dir/async_pub.cpp.o
 
 
 # Object files for target async_pub
 async_pub_OBJECTS = \
-"CMakeFiles/async_pub.dir/examples/async_pub.cpp.o"
+"CMakeFiles/async_pub.dir/async_pub.cpp.o"
 
 # External object files for target async_pub
 async_pub_EXTERNAL_OBJECTS =
 
-async_pub: CMakeFiles/async_pub.dir/examples/async_pub.cpp.o
+async_pub: CMakeFiles/async_pub.dir/async_pub.cpp.o
 async_pub: CMakeFiles/async_pub.dir/build.make
 async_pub: /usr/local/lib/libpaho-mqtt3a.so
 async_pub: /usr/local/lib/libpaho-mqttpp3.so
@@ -103,7 +103,7 @@ CMakeFiles/async_pub.dir/build: async_pub
 
 .PHONY : CMakeFiles/async_pub.dir/build
 
-CMakeFiles/async_pub.dir/requires: CMakeFiles/async_pub.dir/examples/async_pub.cpp.o.requires
+CMakeFiles/async_pub.dir/requires: CMakeFiles/async_pub.dir/async_pub.cpp.o.requires
 
 .PHONY : CMakeFiles/async_pub.dir/requires
 

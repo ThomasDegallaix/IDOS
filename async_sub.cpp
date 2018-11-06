@@ -1,9 +1,13 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * *
-* Asynchronous mqtt subscriber/publisher using SSL *
-*         using the paho mqtt cpp library          *
-* * * * * * * * * * * * * * * * *    * * * * * * * */
-#include <sstream>
-#include <fstream>
+//Check if mosquitto is running with the correct config file if you are the broker
+//Check if mosquitto-clients is installed if you are a client
+//https://github.com/eclipse/paho.mqtt.cpp
+//Inspired by paho cpp samples
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* Asynchronous mqtt subscriber based on async_subscribe.cpp  *
+*            in the paho mqtt cpp library                    *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -13,56 +17,22 @@
 #include <chrono>
 #include "header/msg_manager.h"
 #include "header/json.hpp"
-#include "mqtt/async_client.h" //include almost the whole mqtt library
+#include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
 
-/* TODO GLOBAL*/
-// configuration de la gateway selon le robot
-// chargement des paramètres du robot
-// communication inter process => MPI/socket (python <=> C++)
-// Callback lorsque l'appli principale veut envoyer un message via mqtt
-// Callback lorsque l'appli principale doit recevoir un message via mqtt3
-// Création des différents topics à utiliser
-// soigner le code
-// Repenser l'architecture du dossier (création d'un dossier pour les execs, dossier avec libraires, etc)
-// documentation: Sources, fonctionnement, tuto d'utilisation, tuto d'installation
-// Schéma de la structure de l'appli (dossiers fichiers etc)
-
-
-/*TODO ACTUEL*/
-//ajout des sockets
-//callback socket pour la publication
-//envoi via socket de message dans le callback des messages mqtt
-
 using json = nlohmann::json;
+
 msg_manager m;
 
-// TODO: LOAD DIFFERENT CONFIGURATIONS DIRECLTY AT THE BEGINNING OF MAIN
+//ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
+
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
+/* This variables set up the parameters of the mqtt communication */
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
-
-//https://stackoverflow.com/questions/21031755/linux-c-how-to-programatically-get-mac-address-for-all-adapters-on-a-lan
-
-//WORK TO DO HERE
 const std::string CLIENT_NAME(config["clients"]["server"]["name"].as<std::string>());
 const int CLIENT_ID(config["ID_entity"].as<int>());
-
-//Need something more flexible
 const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
-
-
-
-
-//WARNING: SENT AT INITIALIZATION
-//replace "server" by something generic
-//const std::string LWT_PAYLOAD = config["clients"]["server"]["name"].as<std::string>() + std::to_string(CLIENT_ID) + " is now offline...";
-
-
-
-
-
-const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
 /* Quality Of Service level - 1 = message devlivered at least once - use of ACK */
 const int QOS = config["QOS"].as<int>();
 /* In case of problems, number of time the client is trying to reconnect */
@@ -148,7 +118,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
   void on_success(const mqtt::token& tok) override {
 		std::cout << "\nConnection success" << std::endl;
 		std::cout << "\nSubscribing to topic '" << TOPIC << "'\n"
-			<< "\tfor client " << CLIENT_NAME << CLIENT_ID
+			<< "\tfor client " << CLIENT_ID
 			<< " using QoS" << QOS << "\n"
 			<< "\nPress Q<Enter> to quit\n" << std::endl;
 
@@ -166,39 +136,31 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		reconnect();
 	}
 
-  /* Display informations when a message arrives */
+//Need socket or serial comm depending on the robot
+  /* Deserialization + Display informations when a message arrives */
   void message_arrived(mqtt::const_message_ptr msg) override {
 		std::cout << "Message arrived" << std::endl;
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
 
     auto json_msg = m.deserialization(msg->to_string().c_str());
-
+    std::cout << "json_msg: ";
+    std::cout << json_msg << std::endl;
 	}
 
-  /* ACK */
-  void delivery_complete(mqtt::delivery_token_ptr tok) override {
-		std::cout << "\tDelivery complete for token: "
-			<< (tok ? tok->get_message_id() : -1) << std::endl;
-	}
+  // Not useful here
+  void delivery_complete(mqtt::delivery_token_ptr token) override {}
 
 public:
-  callback(mqtt::async_client& cli, mqtt::connect_options& connOpts): nretry_(N_RETRY_ATTEMPTS), cli_(cli), connOpts_(connOpts), subListener_("Subscription") {}
+  callback(mqtt::async_client& cli, mqtt::connect_options& connOpts): nretry_(0), cli_(cli), connOpts_(connOpts), subListener_("Subscription") {}
 
 };
 
 
 int main(int argc, char **argv) {
 
-  std::cout << "\nInitializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
-  std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
-  mqtt::async_client client(SERVER_ADDRESS, CLIENT);
-
   mqtt::ssl_options sslopts;
   sslopts.set_trust_store("../certs/ca.crt");
-
-  //mqtt::message willmsg(TOPIC, LWT_PAYLOAD, 1, true);
-	//mqtt::will_options will(willmsg);
 
   //set_keep_alive_interval = max time should pass between client and serv without communication
   //set_clean_session = Sets whether the server should remember state for the client across reconnects
@@ -208,23 +170,13 @@ int main(int argc, char **argv) {
 	connOpts.set_user_name("IDOSdevice1");
 	connOpts.set_password("TrYaGA1N");
   connOpts.set_ssl(sslopts);
-  //connOpts.set_will(will);
+
+  std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
+  mqtt::async_client client(SERVER_ADDRESS, CLIENT);
 
 	//Set an object as callbacks for the client
 	callback cb(client, connOpts);
 	client.set_callback(cb);
-
-  /* JSON messages */
-  std::cout << "Opening ressources..." << std::endl;
-  std::ifstream ifs("../config/message.json");
-  if(!ifs.is_open()) {
-    std::cout << "ERROR: Could not open message.json file" << std::endl;
-    return false;
-  }
-  json json_msg = json::parse(ifs);
-  ifs.close();
-
-  std::cout << "Initialization: OK\n" << std::endl;
 
   // Start the connection.
 	// When completed, the callback will subscribe to topic.
@@ -238,6 +190,7 @@ int main(int argc, char **argv) {
 			<< SERVER_ADDRESS << "'" << std::endl;
 		return 1;
 	}
+
 
 
 	// Just block till user tells us to quit.

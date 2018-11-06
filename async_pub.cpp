@@ -16,8 +16,8 @@
 #include <chrono>
 #include <cstring>
 #include <vector>
-#include "../header/msg_manager.h"
-#include "../header/json.hpp"
+#include "header/msg_manager.h"
+#include "header/json.hpp"
 #include "mqtt/async_client.h"
 #include "yaml-cpp/yaml.h"
 
@@ -33,9 +33,6 @@ const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"]["niryo"]["name"].as<std::string>());
 const int CLIENT_ID(config["ID_entity"].as<int>());
 const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
-
-//const std::string LWT_PAYLOAD = config["clients"]["niryo"]["name"].as<std::string>() + std::to_string(CLIENT_ID) + " is now offline...";
-
 const int QOS = config["QOS"].as<int>();
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
 
@@ -66,13 +63,9 @@ int main(int argc, char **argv) {
 	mqtt::ssl_options sslopts;
 	sslopts.set_trust_store("../certs/ca.crt");
 
-	//mqtt::message willmsg(TOPIC, LWT_PAYLOAD, 1, true);
-	//mqtt::will_options will(willmsg);
-
 	mqtt::connect_options connOpts;
 	connOpts.set_user_name("IDOSdevice2");
 	connOpts.set_password("TrYaGA1N");
-	//connOpts.set_will(will);
 	connOpts.set_ssl(sslopts);
 
 	callback cb;

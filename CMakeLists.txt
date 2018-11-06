@@ -18,8 +18,10 @@ add_library(messageFunctions msg_manager.cpp)
 
 ## binary files
 #add_executable(msg_manager msg_manager.cpp)
-add_executable(async_sub examples/async_sub.cpp)
-add_executable(async_pub examples/async_pub.cpp)
+add_executable(async_sub async_sub.cpp)
+add_executable(async_pub async_pub.cpp)
+add_executable(async_sub_sample examples/async_sub_sample.cpp)
+add_executable(async_pub_sample examples/async_pub_sample.cpp)
 add_executable(gateway_mqtt gateway_mqtt.cpp)
 add_executable(testfile testfiles/testplace.cpp)
 
@@ -30,6 +32,16 @@ target_link_libraries(async_sub
     ${YAML_CPP_LIB}
     messageFunctions)
 target_link_libraries(async_pub
+    ${PAHO_C_LIB}
+    ${PAHO_CPP_LIB}
+    ${YAML_CPP_LIB}
+    messageFunctions)
+target_link_libraries(async_sub_sample
+    ${PAHO_C_LIB}
+    ${PAHO_CPP_LIB}
+    ${YAML_CPP_LIB}
+    messageFunctions)
+target_link_libraries(async_pub_sample
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
     ${YAML_CPP_LIB}
