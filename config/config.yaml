@@ -6,6 +6,11 @@
 ## BROKER
 server_address: "ssl://localhost:18885"
 
+# Socket port gateway ---> system
+socket_port_GS: 5000
+# Socket port system ---> gateway
+socket_port_SG: 5001
+
 ## /!\ THIS HAS TO BE SET UP BY THE ADMINISTRATOR FOR THE MOMENT /!\
 current_entity: "isenbot"
 ##current_entity: "niryo"

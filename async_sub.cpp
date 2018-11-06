@@ -7,7 +7,13 @@
 * Asynchronous mqtt subscriber based on async_subscribe.cpp  *
 *            in the paho mqtt cpp library                    *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -21,7 +27,6 @@
 #include "yaml-cpp/yaml.h"
 
 using json = nlohmann::json;
-
 msg_manager m;
 
 //ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
@@ -136,16 +141,53 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		reconnect();
 	}
 
-//Need socket or serial comm depending on the robot
-  /* Deserialization + Display informations when a message arrives */
+
+  /* Deserialization + Sending to server/robot + Display informations when a message arrives */
   void message_arrived(mqtt::const_message_ptr msg) override {
 		std::cout << "Message arrived" << std::endl;
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
 
+
+
     auto json_msg = m.deserialization(msg->to_string().c_str());
-    std::cout << "json_msg: ";
-    std::cout << json_msg << std::endl;
+
+    if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<std::string>()) {
+
+      int sockfd;
+      struct sockaddr_in servaddr;
+
+      // Creating socket file descriptor
+      if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
+          std::cout << "ERROR: Socket creation failed" << std::endl;
+          exit(EXIT_FAILURE);
+      }
+
+      memset(&servaddr, 0, sizeof(servaddr));
+
+      // Filling server information
+      const char* targetIp = "192.168.43.187";
+      servaddr.sin_family = AF_INET;
+      servaddr.sin_addr.s_addr = inet_addr(targetIp);
+      servaddr.sin_port = htons(config["socket_port_GS"].as<int>());
+      //inet_pton(AF_INET,"192.168.43.187", &servaddr.sin_addr.s_addr );
+
+      std::cout << "Sending message to " << targetIp << " via UDP socket ..." << std::endl;
+      // Sending message to control program
+      int s;
+      s = sendto(sockfd, msg->to_string().c_str(), strlen(msg->to_string().c_str()), 0, (const struct sockaddr *) &servaddr,  sizeof(servaddr));
+      if (s < 0) {
+        std::cout << "ERROR: Can't send UDP socket message" << std::endl;
+        exit(EXIT_FAILURE);
+      }
+      else {
+        std::cout << "DONE\n" << std::endl;
+      }
+      close(sockfd);
+    }
+
+    m.clear_message(json_msg);
+
 	}
 
   // Not useful here
@@ -159,11 +201,17 @@ public:
 
 int main(int argc, char **argv) {
 
+  std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
+  std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
+  mqtt::async_client client(SERVER_ADDRESS, CLIENT);
+
+  std::cout << "Setting up MQTT connection options" << std::endl;
+  //Set up SSL
   mqtt::ssl_options sslopts;
   sslopts.set_trust_store("../certs/ca.crt");
-
   //set_keep_alive_interval = max time should pass between client and serv without communication
   //set_clean_session = Sets whether the server should remember state for the client across reconnects
+  //Set up connection options
   mqtt::connect_options connOpts;
 	connOpts.set_keep_alive_interval(20);
 	connOpts.set_clean_session(true);
@@ -171,12 +219,12 @@ int main(int argc, char **argv) {
 	connOpts.set_password("TrYaGA1N");
   connOpts.set_ssl(sslopts);
 
-  std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
-  mqtt::async_client client(SERVER_ADDRESS, CLIENT);
-
+  std::cout << "Setting up MQTT callbacks" << std::endl;
 	//Set an object as callbacks for the client
 	callback cb(client, connOpts);
 	client.set_callback(cb);
+
+  std::cout << "Setup: OK..." << std::endl;
 
   // Start the connection.
 	// When completed, the callback will subscribe to topic.

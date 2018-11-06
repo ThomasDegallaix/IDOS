@@ -7,6 +7,20 @@
 #IncludeRegexTransform: 
 
 /home/thomas-ubuntu/Desktop/IDOS/async_sub.cpp
+stdio.h
+-
+stdlib.h
+-
+unistd.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+netinet/in.h
+-
 iostream
 -
 cstdlib
