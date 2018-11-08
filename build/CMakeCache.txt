@@ -165,11 +165,20 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//No help, variable specified on the command line.
+PAHO_BUILD_DOCUMENTATION:UNINITIALIZED=TRUE
+
+//No help, variable specified on the command line.
+PAHO_BUILD_SAMPLES:UNINITIALIZED=TRUE
+
 //Path to a library.
 PAHO_CPP_LIB:FILEPATH=/usr/local/lib/libpaho-mqttpp3.so
 
 //Path to a library.
 PAHO_C_LIB:FILEPATH=/usr/local/lib/libpaho-mqtt3a.so
+
+//No help, variable specified on the command line.
+PAHO_MQTT_C_PATH:UNINITIALIZED=../../paho.mqtt.c
 
 //Path to a library.
 YAML_CPP_LIB:FILEPATH=/usr/local/lib/libyaml-cpp.a

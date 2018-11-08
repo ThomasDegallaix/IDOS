@@ -170,11 +170,10 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
       memset(&servaddr, 0, sizeof(servaddr));
 
       // Filling server information
-      const char* targetIp = "192.168.43.11";
+      const char* targetIp = "127.0.0.1";
       servaddr.sin_family = AF_INET;
       servaddr.sin_addr.s_addr = inet_addr(targetIp);
       servaddr.sin_port = htons(config["socket_port_GS"].as<int>());
-      //inet_pton(AF_INET,"192.168.43.187", &servaddr.sin_addr.s_addr );
 
       std::cout << "Sending message to " << targetIp << " via UDP socket ..." << std::endl;
       // Sending message to control program
