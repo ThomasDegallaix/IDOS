@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/test5.dir/test5.c.o  -o test5 -rdynamic ../src/libpaho-mqtt3as.so.1.3.0 -lssl -lcrypto -lc -ldl -lpthread -Wl,-rpath,/home/thomas-ubuntu/Desktop/gatewayMQTT/libraries/paho.mqtt.c/src 

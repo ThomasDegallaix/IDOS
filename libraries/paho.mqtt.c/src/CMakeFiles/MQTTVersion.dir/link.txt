@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/MQTTVersion.dir/MQTTVersion.c.o  -o MQTTVersion -rdynamic libpaho-mqtt3a.so.1.3.0 libpaho-mqtt3c.so.1.3.0 -lc -ldl -lpthread -Wl,-rpath,/home/thomas-ubuntu/Desktop/gatewayMQTT/libraries/paho.mqtt.c/src: 

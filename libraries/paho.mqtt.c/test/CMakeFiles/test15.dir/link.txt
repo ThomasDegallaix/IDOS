@@ -1,0 +1,1 @@
+/usr/bin/cc     CMakeFiles/test15.dir/test15.c.o  -o test15 -rdynamic ../src/libpaho-mqtt3c.so.1.3.0 -lc -ldl -lpthread -Wl,-rpath,/home/thomas-ubuntu/Desktop/gatewayMQTT/libraries/paho.mqtt.c/src 
