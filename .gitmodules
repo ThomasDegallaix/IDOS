@@ -9,4 +9,4 @@
 	url = https://github.com/eclipse/paho.mqtt.cpp.git
 [submodule "libraries/yaml-cpp"]
 	path = libraries/yaml-cpp
-	url = https://github.com/ThomasDegallaix/gatewayMQTT.git
+	url = https://github.com/ThomasDegallaix/gatewayMQTT/tree/master/libraries/yaml-cpp
