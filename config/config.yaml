@@ -11,12 +11,6 @@ socket_port_GS: 5000
 # Socket port system ---> gateway
 socket_port_SG: 5001
 
-## /!\ THIS HAS TO BE SET UP BY THE ADMINISTRATOR FOR THE MOMENT /!\
-current_entity: "isenbot"
-##current_entity: "niryo"
-##current_entity: "hexapod"
-##current_entity: "turtlebot"
-##current_entity: "server"
 
 ##This ID corresponds to the robot number among the other robots of the same type
 ## /!\ THIS HAS TO BE SET UP BY THE ADMINISTRATOR FOR THE MOMENT /!\
