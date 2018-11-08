@@ -44,11 +44,11 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/gateway_mqtt.dir/DependInfo.cmake"
   "CMakeFiles/async_pub_sample.dir/DependInfo.cmake"
   "CMakeFiles/messageFunctions.dir/DependInfo.cmake"
+  "CMakeFiles/async_pub_serial.dir/DependInfo.cmake"
+  "CMakeFiles/async_sub_serial.dir/DependInfo.cmake"
   "CMakeFiles/async_sub.dir/DependInfo.cmake"
-  "CMakeFiles/testfile.dir/DependInfo.cmake"
   "CMakeFiles/async_sub_sample.dir/DependInfo.cmake"
   "CMakeFiles/async_pub.dir/DependInfo.cmake"
   )

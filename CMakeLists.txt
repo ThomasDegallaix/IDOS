@@ -22,8 +22,9 @@ add_executable(async_sub async_sub.cpp)
 add_executable(async_pub async_pub.cpp)
 add_executable(async_sub_sample examples/async_sub_sample.cpp)
 add_executable(async_pub_sample examples/async_pub_sample.cpp)
-add_executable(gateway_mqtt gateway_mqtt.cpp)
-add_executable(testfile testfiles/testplace.cpp)
+#add_executable(testfile testfiles/testplace.cpp)
+add_executable(async_sub_serial async_sub_serial.cpp)
+add_executable(async_pub_serial async_pub_serial.cpp)
 
 ## link binaries
 target_link_libraries(async_sub
@@ -46,9 +47,21 @@ target_link_libraries(async_pub_sample
     ${PAHO_CPP_LIB}
     ${YAML_CPP_LIB}
     messageFunctions)
-target_link_libraries(gateway_mqtt
+
+
+
+target_link_libraries(async_sub_serial
     ${PAHO_C_LIB}
     ${PAHO_CPP_LIB}
     ${YAML_CPP_LIB}
     messageFunctions)
+target_link_libraries(async_pub_serial
+    ${PAHO_C_LIB}
+    ${PAHO_CPP_LIB}
+    ${YAML_CPP_LIB}
+    messageFunctions)
+
+
+
+
 

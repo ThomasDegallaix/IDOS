@@ -7,14 +7,17 @@
 * Asynchronous mqtt subscriber based on async_subscribe.cpp  *
 *            in the paho mqtt cpp library                    *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#include <fcntl.h>   /* File control definitions */
+#include <errno.h>   /* Error number definitions */
+#include <termios.h> /* POSIX terminal control definitions */
 
-//for sockets
-
+/*
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+*/
 
 #include <unistd.h>
 #include <stdio.h>
@@ -154,10 +157,10 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 
 
 
-    auto json_msg = m.deserialization(msg->to_string().c_str());
+    //auto json_msg = m.deserialization(msg->to_string().c_str());
 
-    if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<std::string>()) {
-
+    //if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<std::string>()) {
+/*
       int sockfd;
       struct sockaddr_in servaddr;
 
@@ -170,7 +173,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
       memset(&servaddr, 0, sizeof(servaddr));
 
       // Filling server information
-      const char* targetIp = "192.168.43.11";
+      const char* targetIp = "192.168.43.187";
       servaddr.sin_family = AF_INET;
       servaddr.sin_addr.s_addr = inet_addr(targetIp);
       servaddr.sin_port = htons(config["socket_port_GS"].as<int>());
@@ -188,9 +191,40 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
         std::cout << "DONE\n" << std::endl;
       }
       close(sockfd);
-    }
+      */
+      int fd; /* File descriptor for the port */
 
-    m.clear_message(json_msg);
+      const char* port = "/dev/ttyACM0";
+      fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY);
+      if (fd == -1) {
+        perror("open_port: Unable to open /dev/ttyf1 - ");
+      }
+      else {
+        fcntl(fd, F_SETFL, 0);
+      }
+
+      struct termios options;
+      // Get the current options for the port
+      tcgetattr(fd, &options);
+      // Set the baud rates to 9600
+      cfsetispeed(&options, B9600);
+      cfsetospeed(&options, B9600);
+      // Enable the receiver and et local mode
+      options.c_cflag |= (CLOCAL | CREAD);
+      options.c_cflag &= ~CSIZE; /* Mask the character size bits */
+      options.c_cflag |= CS8;    /* Select 8 data bits */
+      // Set the new options for the port
+      tcsetattr(fd, TCSANOW, &options);
+
+      int n = write(fd, msg->to_string().c_str(), strlen(msg->to_string().c_str()));
+      if (n < 0) {
+        std::cout << "ERROR: Could not write the " << n << " bytes on port " << port << std::endl;
+      }
+      close(fd);
+
+    //}
+
+    //m.clear_message(json_msg);
 
 	}
 

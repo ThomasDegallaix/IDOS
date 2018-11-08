@@ -60,43 +60,6 @@ CMAKE_SOURCE_DIR = /home/thomas-ubuntu/Desktop/IDOS
 CMAKE_BINARY_DIR = /home/thomas-ubuntu/Desktop/IDOS/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/gateway_mqtt.dir
-
-# All Build rule for target.
-CMakeFiles/gateway_mqtt.dir/all: CMakeFiles/messageFunctions.dir/all
-	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/depend
-	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=9,10 "Built target gateway_mqtt"
-.PHONY : CMakeFiles/gateway_mqtt.dir/all
-
-# Include target in all.
-all: CMakeFiles/gateway_mqtt.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/gateway_mqtt.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gateway_mqtt.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
-.PHONY : CMakeFiles/gateway_mqtt.dir/rule
-
-# Convenience name for target.
-gateway_mqtt: CMakeFiles/gateway_mqtt.dir/rule
-
-.PHONY : gateway_mqtt
-
-# clean rule for target.
-CMakeFiles/gateway_mqtt.dir/clean:
-	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/clean
-.PHONY : CMakeFiles/gateway_mqtt.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/gateway_mqtt.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/async_pub_sample.dir
 
 # All Build rule for target.
@@ -140,7 +103,7 @@ clean: CMakeFiles/async_pub_sample.dir/clean
 CMakeFiles/messageFunctions.dir/all:
 	$(MAKE) -f CMakeFiles/messageFunctions.dir/build.make CMakeFiles/messageFunctions.dir/depend
 	$(MAKE) -f CMakeFiles/messageFunctions.dir/build.make CMakeFiles/messageFunctions.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=11,12 "Built target messageFunctions"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=13,14 "Built target messageFunctions"
 .PHONY : CMakeFiles/messageFunctions.dir/all
 
 # Include target in all.
@@ -171,13 +134,87 @@ clean: CMakeFiles/messageFunctions.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/async_pub_serial.dir
+
+# All Build rule for target.
+CMakeFiles/async_pub_serial.dir/all: CMakeFiles/messageFunctions.dir/all
+	$(MAKE) -f CMakeFiles/async_pub_serial.dir/build.make CMakeFiles/async_pub_serial.dir/depend
+	$(MAKE) -f CMakeFiles/async_pub_serial.dir/build.make CMakeFiles/async_pub_serial.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=5,6 "Built target async_pub_serial"
+.PHONY : CMakeFiles/async_pub_serial.dir/all
+
+# Include target in all.
+all: CMakeFiles/async_pub_serial.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/async_pub_serial.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/async_pub_serial.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
+.PHONY : CMakeFiles/async_pub_serial.dir/rule
+
+# Convenience name for target.
+async_pub_serial: CMakeFiles/async_pub_serial.dir/rule
+
+.PHONY : async_pub_serial
+
+# clean rule for target.
+CMakeFiles/async_pub_serial.dir/clean:
+	$(MAKE) -f CMakeFiles/async_pub_serial.dir/build.make CMakeFiles/async_pub_serial.dir/clean
+.PHONY : CMakeFiles/async_pub_serial.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/async_pub_serial.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/async_sub_serial.dir
+
+# All Build rule for target.
+CMakeFiles/async_sub_serial.dir/all: CMakeFiles/messageFunctions.dir/all
+	$(MAKE) -f CMakeFiles/async_sub_serial.dir/build.make CMakeFiles/async_sub_serial.dir/depend
+	$(MAKE) -f CMakeFiles/async_sub_serial.dir/build.make CMakeFiles/async_sub_serial.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=11,12 "Built target async_sub_serial"
+.PHONY : CMakeFiles/async_sub_serial.dir/all
+
+# Include target in all.
+all: CMakeFiles/async_sub_serial.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/async_sub_serial.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/async_sub_serial.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
+.PHONY : CMakeFiles/async_sub_serial.dir/rule
+
+# Convenience name for target.
+async_sub_serial: CMakeFiles/async_sub_serial.dir/rule
+
+.PHONY : async_sub_serial
+
+# clean rule for target.
+CMakeFiles/async_sub_serial.dir/clean:
+	$(MAKE) -f CMakeFiles/async_sub_serial.dir/build.make CMakeFiles/async_sub_serial.dir/clean
+.PHONY : CMakeFiles/async_sub_serial.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/async_sub_serial.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/async_sub.dir
 
 # All Build rule for target.
 CMakeFiles/async_sub.dir/all: CMakeFiles/messageFunctions.dir/all
 	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/depend
 	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=5,6 "Built target async_sub"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=7,8 "Built target async_sub"
 .PHONY : CMakeFiles/async_sub.dir/all
 
 # Include target in all.
@@ -208,50 +245,13 @@ clean: CMakeFiles/async_sub.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/testfile.dir
-
-# All Build rule for target.
-CMakeFiles/testfile.dir/all:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/depend
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=13,14 "Built target testfile"
-.PHONY : CMakeFiles/testfile.dir/all
-
-# Include target in all.
-all: CMakeFiles/testfile.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/testfile.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testfile.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles 0
-.PHONY : CMakeFiles/testfile.dir/rule
-
-# Convenience name for target.
-testfile: CMakeFiles/testfile.dir/rule
-
-.PHONY : testfile
-
-# clean rule for target.
-CMakeFiles/testfile.dir/clean:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/clean
-.PHONY : CMakeFiles/testfile.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/testfile.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/async_sub_sample.dir
 
 # All Build rule for target.
 CMakeFiles/async_sub_sample.dir/all: CMakeFiles/messageFunctions.dir/all
 	$(MAKE) -f CMakeFiles/async_sub_sample.dir/build.make CMakeFiles/async_sub_sample.dir/depend
 	$(MAKE) -f CMakeFiles/async_sub_sample.dir/build.make CMakeFiles/async_sub_sample.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=7,8 "Built target async_sub_sample"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=9,10 "Built target async_sub_sample"
 .PHONY : CMakeFiles/async_sub_sample.dir/all
 
 # Include target in all.

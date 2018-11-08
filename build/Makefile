@@ -111,19 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named gateway_mqtt
-
-# Build rule for target.
-gateway_mqtt: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gateway_mqtt
-.PHONY : gateway_mqtt
-
-# fast build rule for target.
-gateway_mqtt/fast:
-	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/build
-.PHONY : gateway_mqtt/fast
-
-#=============================================================================
 # Target rules for targets named async_pub_sample
 
 # Build rule for target.
@@ -150,6 +137,32 @@ messageFunctions/fast:
 .PHONY : messageFunctions/fast
 
 #=============================================================================
+# Target rules for targets named async_pub_serial
+
+# Build rule for target.
+async_pub_serial: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 async_pub_serial
+.PHONY : async_pub_serial
+
+# fast build rule for target.
+async_pub_serial/fast:
+	$(MAKE) -f CMakeFiles/async_pub_serial.dir/build.make CMakeFiles/async_pub_serial.dir/build
+.PHONY : async_pub_serial/fast
+
+#=============================================================================
+# Target rules for targets named async_sub_serial
+
+# Build rule for target.
+async_sub_serial: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 async_sub_serial
+.PHONY : async_sub_serial
+
+# fast build rule for target.
+async_sub_serial/fast:
+	$(MAKE) -f CMakeFiles/async_sub_serial.dir/build.make CMakeFiles/async_sub_serial.dir/build
+.PHONY : async_sub_serial/fast
+
+#=============================================================================
 # Target rules for targets named async_sub
 
 # Build rule for target.
@@ -161,19 +174,6 @@ async_sub: cmake_check_build_system
 async_sub/fast:
 	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/build
 .PHONY : async_sub/fast
-
-#=============================================================================
-# Target rules for targets named testfile
-
-# Build rule for target.
-testfile: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testfile
-.PHONY : testfile
-
-# fast build rule for target.
-testfile/fast:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/build
-.PHONY : testfile/fast
 
 #=============================================================================
 # Target rules for targets named async_sub_sample
@@ -228,6 +228,33 @@ async_pub.cpp.s:
 	$(MAKE) -f CMakeFiles/async_pub.dir/build.make CMakeFiles/async_pub.dir/async_pub.cpp.s
 .PHONY : async_pub.cpp.s
 
+async_pub_serial.o: async_pub_serial.cpp.o
+
+.PHONY : async_pub_serial.o
+
+# target to build an object file
+async_pub_serial.cpp.o:
+	$(MAKE) -f CMakeFiles/async_pub_serial.dir/build.make CMakeFiles/async_pub_serial.dir/async_pub_serial.cpp.o
+.PHONY : async_pub_serial.cpp.o
+
+async_pub_serial.i: async_pub_serial.cpp.i
+
+.PHONY : async_pub_serial.i
+
+# target to preprocess a source file
+async_pub_serial.cpp.i:
+	$(MAKE) -f CMakeFiles/async_pub_serial.dir/build.make CMakeFiles/async_pub_serial.dir/async_pub_serial.cpp.i
+.PHONY : async_pub_serial.cpp.i
+
+async_pub_serial.s: async_pub_serial.cpp.s
+
+.PHONY : async_pub_serial.s
+
+# target to generate assembly for a file
+async_pub_serial.cpp.s:
+	$(MAKE) -f CMakeFiles/async_pub_serial.dir/build.make CMakeFiles/async_pub_serial.dir/async_pub_serial.cpp.s
+.PHONY : async_pub_serial.cpp.s
+
 async_sub.o: async_sub.cpp.o
 
 .PHONY : async_sub.o
@@ -254,6 +281,33 @@ async_sub.s: async_sub.cpp.s
 async_sub.cpp.s:
 	$(MAKE) -f CMakeFiles/async_sub.dir/build.make CMakeFiles/async_sub.dir/async_sub.cpp.s
 .PHONY : async_sub.cpp.s
+
+async_sub_serial.o: async_sub_serial.cpp.o
+
+.PHONY : async_sub_serial.o
+
+# target to build an object file
+async_sub_serial.cpp.o:
+	$(MAKE) -f CMakeFiles/async_sub_serial.dir/build.make CMakeFiles/async_sub_serial.dir/async_sub_serial.cpp.o
+.PHONY : async_sub_serial.cpp.o
+
+async_sub_serial.i: async_sub_serial.cpp.i
+
+.PHONY : async_sub_serial.i
+
+# target to preprocess a source file
+async_sub_serial.cpp.i:
+	$(MAKE) -f CMakeFiles/async_sub_serial.dir/build.make CMakeFiles/async_sub_serial.dir/async_sub_serial.cpp.i
+.PHONY : async_sub_serial.cpp.i
+
+async_sub_serial.s: async_sub_serial.cpp.s
+
+.PHONY : async_sub_serial.s
+
+# target to generate assembly for a file
+async_sub_serial.cpp.s:
+	$(MAKE) -f CMakeFiles/async_sub_serial.dir/build.make CMakeFiles/async_sub_serial.dir/async_sub_serial.cpp.s
+.PHONY : async_sub_serial.cpp.s
 
 examples/async_pub_sample.o: examples/async_pub_sample.cpp.o
 
@@ -309,33 +363,6 @@ examples/async_sub_sample.cpp.s:
 	$(MAKE) -f CMakeFiles/async_sub_sample.dir/build.make CMakeFiles/async_sub_sample.dir/examples/async_sub_sample.cpp.s
 .PHONY : examples/async_sub_sample.cpp.s
 
-gateway_mqtt.o: gateway_mqtt.cpp.o
-
-.PHONY : gateway_mqtt.o
-
-# target to build an object file
-gateway_mqtt.cpp.o:
-	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.o
-.PHONY : gateway_mqtt.cpp.o
-
-gateway_mqtt.i: gateway_mqtt.cpp.i
-
-.PHONY : gateway_mqtt.i
-
-# target to preprocess a source file
-gateway_mqtt.cpp.i:
-	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.i
-.PHONY : gateway_mqtt.cpp.i
-
-gateway_mqtt.s: gateway_mqtt.cpp.s
-
-.PHONY : gateway_mqtt.s
-
-# target to generate assembly for a file
-gateway_mqtt.cpp.s:
-	$(MAKE) -f CMakeFiles/gateway_mqtt.dir/build.make CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.s
-.PHONY : gateway_mqtt.cpp.s
-
 msg_manager.o: msg_manager.cpp.o
 
 .PHONY : msg_manager.o
@@ -363,33 +390,6 @@ msg_manager.cpp.s:
 	$(MAKE) -f CMakeFiles/messageFunctions.dir/build.make CMakeFiles/messageFunctions.dir/msg_manager.cpp.s
 .PHONY : msg_manager.cpp.s
 
-testfiles/testplace.o: testfiles/testplace.cpp.o
-
-.PHONY : testfiles/testplace.o
-
-# target to build an object file
-testfiles/testplace.cpp.o:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/testfiles/testplace.cpp.o
-.PHONY : testfiles/testplace.cpp.o
-
-testfiles/testplace.i: testfiles/testplace.cpp.i
-
-.PHONY : testfiles/testplace.i
-
-# target to preprocess a source file
-testfiles/testplace.cpp.i:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/testfiles/testplace.cpp.i
-.PHONY : testfiles/testplace.cpp.i
-
-testfiles/testplace.s: testfiles/testplace.cpp.s
-
-.PHONY : testfiles/testplace.s
-
-# target to generate assembly for a file
-testfiles/testplace.cpp.s:
-	$(MAKE) -f CMakeFiles/testfile.dir/build.make CMakeFiles/testfile.dir/testfiles/testplace.cpp.s
-.PHONY : testfiles/testplace.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -398,34 +398,34 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... gateway_mqtt"
 	@echo "... async_pub_sample"
 	@echo "... messageFunctions"
+	@echo "... async_pub_serial"
+	@echo "... async_sub_serial"
 	@echo "... async_sub"
-	@echo "... testfile"
 	@echo "... async_sub_sample"
 	@echo "... async_pub"
 	@echo "... async_pub.o"
 	@echo "... async_pub.i"
 	@echo "... async_pub.s"
+	@echo "... async_pub_serial.o"
+	@echo "... async_pub_serial.i"
+	@echo "... async_pub_serial.s"
 	@echo "... async_sub.o"
 	@echo "... async_sub.i"
 	@echo "... async_sub.s"
+	@echo "... async_sub_serial.o"
+	@echo "... async_sub_serial.i"
+	@echo "... async_sub_serial.s"
 	@echo "... examples/async_pub_sample.o"
 	@echo "... examples/async_pub_sample.i"
 	@echo "... examples/async_pub_sample.s"
 	@echo "... examples/async_sub_sample.o"
 	@echo "... examples/async_sub_sample.i"
 	@echo "... examples/async_sub_sample.s"
-	@echo "... gateway_mqtt.o"
-	@echo "... gateway_mqtt.i"
-	@echo "... gateway_mqtt.s"
 	@echo "... msg_manager.o"
 	@echo "... msg_manager.i"
 	@echo "... msg_manager.s"
-	@echo "... testfiles/testplace.o"
-	@echo "... testfiles/testplace.i"
-	@echo "... testfiles/testplace.s"
 .PHONY : help
 
 

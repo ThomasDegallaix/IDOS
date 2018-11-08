@@ -7,14 +7,17 @@
 * Asynchronous mqtt publisher using SSL based on async_publish.cpp *
 *            in the paho mqtt cpp library                          *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#include <fcntl.h>   /* File control definitions */
+#include <errno.h>   /* Error number definitions */
+#include <termios.h> /* POSIX terminal control definitions */
 
-//for sockets
-
+/*
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+*/
 
 #include <unistd.h>
 #include <stdio.h>
@@ -73,6 +76,7 @@ int main(int argc, char **argv) {
 	std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
 	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
 	mqtt::async_client client(SERVER_ADDRESS,CLIENT);
+	/*
 	int sockfd;
 	char buffer[MAXLINE];
 	struct sockaddr_in servaddr, cliaddr;
@@ -97,32 +101,74 @@ int main(int argc, char **argv) {
       std::cout << "ERROR: Bind failed" << std::endl;
       exit(EXIT_FAILURE);
   }
+*/
 
-	std::cout << "Setting up MQTT connection options" << std::endl;
-	//Set up SSL
-	mqtt::ssl_options sslopts;
-	sslopts.set_trust_store("../certs/ca.crt");
-	//Set up connection options
-	mqtt::connect_options connOpts;
-	connOpts.set_user_name("IDOSdevice2");
-	connOpts.set_password("TrYaGA1N");
-	connOpts.set_ssl(sslopts);
+	int fd; /* File descriptor for the port */
 
-	std::cout << "Setting up MQTT callbacks" << std::endl;
-	callback cb;
-	client.set_callback(cb);
+	const char* port = "/dev/ttyACM0";
+	char buffer[MAXLINE];
+	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY);
+	if (fd == -1) {
+		perror("open_port: Unable to open /dev/ttyf1 - ");
+	}
+	else {
+		fcntl(fd, F_SETFL, 0);
+	}
 
-	std::cout << "Setup: OK..." << std::endl;
+	struct termios options;
+	// Get the current options for the port
+	tcgetattr(fd, &options);
+	// Set the baud rates to 9600
+	cfsetispeed(&options, B9600);
+	cfsetospeed(&options, B9600);
+	// 8 bits, no parity, no stop bits
+  options.c_cflag &= ~PARENB;
+  options.c_cflag &= ~CSTOPB;
+  options.c_cflag &= ~CSIZE;
+  options.c_cflag |= CS8;
+	// No hardware flow control
+	options.c_cflag &= ~CRTSCTS;
+	// enable receiver, ignore status lines
+	options.c_cflag |= CREAD | CLOCAL;
+	// disable input/output flow control, disable restart chars
+	options.c_iflag &= ~(IXON | IXOFF | IXANY);
+	//disable canonical input, disable echo,
+	//disable visually erase chars,
+	//disable terminal-generated signals
+	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+	//disable output processing
+	options.c_oflag &= ~OPOST;
+	// Set the new options for the port
+	tcsetattr(fd, TCSANOW, &options);
+	// Flush anything already in the serial buffer
+	tcflush(fd, TCIFLUSH);
 
-	try {
-		std::cout << "Connecting to the MQTT server..." << std::flush;
-		mqtt::token_ptr conntok = client.connect(connOpts);
-		std::cout << "Waiting for the connection..." << std::endl;
-		conntok->wait();
-		std::cout << "Connection: OK..." << std::endl;
 
-		while(1) {
+		std::cout << "Setting up MQTT connection options" << std::endl;
+		//Set up SSL
+		mqtt::ssl_options sslopts;
+		sslopts.set_trust_store("../certs/ca.crt");
+		//Set up connection options
+		mqtt::connect_options connOpts;
+		connOpts.set_user_name("IDOSdevice2");
+		connOpts.set_password("TrYaGA1N");
+		connOpts.set_ssl(sslopts);
 
+		std::cout << "Setting up MQTT callbacks" << std::endl;
+		callback cb;
+		client.set_callback(cb);
+
+		std::cout << "Setup: OK..." << std::endl;
+
+		try {
+			std::cout << "Connecting to the MQTT server..." << std::flush;
+			mqtt::token_ptr conntok = client.connect(connOpts);
+			std::cout << "Waiting for the connection..." << std::endl;
+			conntok->wait();
+			std::cout << "Connection: OK..." << std::endl;
+
+
+/*
 			int retval;
 			socklen_t len;
 
@@ -130,24 +176,49 @@ int main(int argc, char **argv) {
 			buffer[retval] = '\0';
 
 			std::cout << buffer << std::endl;
+*/
+			//json json_msg = m.deserialization(buffer);
 
-			json json_msg = m.deserialization(buffer);
 
-			mqtt::delivery_token_ptr pubtok;
-			pubtok = client.publish(TOPIC, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
-			std::cout << "SENDING MESSAGE..." << std::endl;
-			std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
-			std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;
-			pubtok->wait_for(TIMEOUT);
-			std::cout << "  ...OK\n" << std::endl;
-		}
+
+			while(1) {
+
+				// Flush anything already in the serial buffer
+				memset(buffer,0,sizeof(buffer));
+				int n = read(fd, buffer, sizeof(buffer));
+				buffer[n] = 0;
+				std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+				std::cout << n << " bytes got read !" << std::endl;
+				std::cout << buffer << std::endl;
+
+				if (n < 0) {
+					std::cout << "ERROR: Could not read serial port !" << std::endl;
+				}
+				else if (n > 0) {
+					int z = 0;
+					while(buffer[z] != '\0') {
+						z++;
+					}
+					json json_msg = m.deserialization(buffer);
+					mqtt::delivery_token_ptr pubtok;
+					pubtok = client.publish(TOPIC, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
+					std::cout << "SENDING MESSAGE..." << std::endl;
+					std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
+					std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;
+					pubtok->wait_for(TIMEOUT);
+					std::cout << "  ...OK\n" << std::endl;
+				}
+
+
+			}
 	}
 	catch (const mqtt::exception& exc) {
 		std::cerr << exc.what() << std::endl;
 		return 1;
 	}
-	close(sockfd);
-
+	close(fd);
+	//close(sockfd);
   return 0;
 
 }
