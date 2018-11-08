@@ -7,12 +7,12 @@ project(gateway_mqtt)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(CMAKE_PREFIX_PATH "/usr/local/lib/")
+set(CMAKE_PREFIX_PATH "/libraries/")
 
 ## find libraries
-find_library(PAHO_C_LIB NAMES libpaho-mqtt3a.so HINTS "${CMAKE_PREFIX_PATH}" REQUIRED)
-find_library(PAHO_CPP_LIB NAMES libpaho-mqttpp3.so HINTS "${CMAKE_PREFIX_PATH}" REQUIRED)
-find_library(YAML_CPP_LIB NAMES libyaml-cpp.so HINTS "${CMAKE_PREFIX_PATH}" REQUIRED)
+find_library(PAHO_C_LIB NAMES libpaho-mqtt3a.so HINTS "/usr/local/lib/" REQUIRED)
+find_library(PAHO_CPP_LIB NAMES libpaho-mqttpp3.so HINTS "/usr/local/lib/" REQUIRED)
+find_library(YAML_CPP_LIB NAMES libyaml-cpp.a HINTS "${CMAKE_PREFIX_PATH}" REQUIRED)
 
 add_library(messageFunctions msg_manager.cpp)
 

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/thomas-ubuntu/Desktop/IDOS/async_sub_serial.cpp
+/home/thomas-ubuntu/Desktop/gatewayMQTT/async_sub_serial.cpp
 fcntl.h
 -
 errno.h
@@ -42,15 +42,15 @@ thread
 chrono
 -
 header/msg_manager.h
-/home/thomas-ubuntu/Desktop/IDOS/header/msg_manager.h
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/msg_manager.h
 header/json.hpp
-/home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/json.hpp
 mqtt/async_client.h
-/home/thomas-ubuntu/Desktop/IDOS/mqtt/async_client.h
+/home/thomas-ubuntu/Desktop/gatewayMQTT/mqtt/async_client.h
 yaml-cpp/yaml.h
-/home/thomas-ubuntu/Desktop/IDOS/yaml-cpp/yaml.h
+/home/thomas-ubuntu/Desktop/gatewayMQTT/yaml-cpp/yaml.h
 
-/home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/json.hpp
 algorithm
 -
 cassert
@@ -330,9 +330,9 @@ vector
 utility
 -
 
-/home/thomas-ubuntu/Desktop/IDOS/header/msg_manager.h
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/msg_manager.h
 json.hpp
-/home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/json.hpp
 vector
 -
 string

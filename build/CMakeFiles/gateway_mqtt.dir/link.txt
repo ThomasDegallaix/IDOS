@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11   CMakeFiles/gateway_mqtt.dir/gateway_mqtt.cpp.o  -o gateway_mqtt -rdynamic /usr/local/lib/libpaho-mqtt3a.so /usr/local/lib/libpaho-mqttpp3.so /usr/local/lib/libyaml-cpp.so libmessageFunctions.a -Wl,-rpath,/usr/local/lib 

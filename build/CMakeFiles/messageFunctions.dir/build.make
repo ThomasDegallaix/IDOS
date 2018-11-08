@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas-ubuntu/Desktop/IDOS
+CMAKE_SOURCE_DIR = /home/thomas-ubuntu/Desktop/gatewayMQTT
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas-ubuntu/Desktop/IDOS/build
+CMAKE_BINARY_DIR = /home/thomas-ubuntu/Desktop/gatewayMQTT/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/messageFunctions.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/messageFunctions.dir/flags.make
 
 CMakeFiles/messageFunctions.dir/msg_manager.cpp.o: CMakeFiles/messageFunctions.dir/flags.make
 CMakeFiles/messageFunctions.dir/msg_manager.cpp.o: ../msg_manager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/messageFunctions.dir/msg_manager.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/messageFunctions.dir/msg_manager.cpp.o -c /home/thomas-ubuntu/Desktop/IDOS/msg_manager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/messageFunctions.dir/msg_manager.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/messageFunctions.dir/msg_manager.cpp.o -c /home/thomas-ubuntu/Desktop/gatewayMQTT/msg_manager.cpp
 
 CMakeFiles/messageFunctions.dir/msg_manager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/messageFunctions.dir/msg_manager.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas-ubuntu/Desktop/IDOS/msg_manager.cpp > CMakeFiles/messageFunctions.dir/msg_manager.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/thomas-ubuntu/Desktop/gatewayMQTT/msg_manager.cpp > CMakeFiles/messageFunctions.dir/msg_manager.cpp.i
 
 CMakeFiles/messageFunctions.dir/msg_manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/messageFunctions.dir/msg_manager.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas-ubuntu/Desktop/IDOS/msg_manager.cpp -o CMakeFiles/messageFunctions.dir/msg_manager.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/thomas-ubuntu/Desktop/gatewayMQTT/msg_manager.cpp -o CMakeFiles/messageFunctions.dir/msg_manager.cpp.s
 
 CMakeFiles/messageFunctions.dir/msg_manager.cpp.o.requires:
 
@@ -91,7 +91,7 @@ messageFunctions_EXTERNAL_OBJECTS =
 libmessageFunctions.a: CMakeFiles/messageFunctions.dir/msg_manager.cpp.o
 libmessageFunctions.a: CMakeFiles/messageFunctions.dir/build.make
 libmessageFunctions.a: CMakeFiles/messageFunctions.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libmessageFunctions.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libmessageFunctions.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/messageFunctions.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/messageFunctions.dir/link.txt --verbose=$(VERBOSE)
 
@@ -109,6 +109,6 @@ CMakeFiles/messageFunctions.dir/clean:
 .PHONY : CMakeFiles/messageFunctions.dir/clean
 
 CMakeFiles/messageFunctions.dir/depend:
-	cd /home/thomas-ubuntu/Desktop/IDOS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/thomas-ubuntu/Desktop/IDOS /home/thomas-ubuntu/Desktop/IDOS /home/thomas-ubuntu/Desktop/IDOS/build /home/thomas-ubuntu/Desktop/IDOS/build /home/thomas-ubuntu/Desktop/IDOS/build/CMakeFiles/messageFunctions.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/thomas-ubuntu/Desktop/gatewayMQTT/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/thomas-ubuntu/Desktop/gatewayMQTT /home/thomas-ubuntu/Desktop/gatewayMQTT /home/thomas-ubuntu/Desktop/gatewayMQTT/build /home/thomas-ubuntu/Desktop/gatewayMQTT/build /home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/messageFunctions.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/messageFunctions.dir/depend
 

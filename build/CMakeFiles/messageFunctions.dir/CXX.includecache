@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/json.hpp
 algorithm
 -
 cassert
@@ -286,17 +286,17 @@ vector
 utility
 -
 
-/home/thomas-ubuntu/Desktop/IDOS/header/msg_manager.h
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/msg_manager.h
 json.hpp
-/home/thomas-ubuntu/Desktop/IDOS/header/json.hpp
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/json.hpp
 vector
 -
 string
 -
 
-/home/thomas-ubuntu/Desktop/IDOS/msg_manager.cpp
+/home/thomas-ubuntu/Desktop/gatewayMQTT/msg_manager.cpp
 header/msg_manager.h
-/home/thomas-ubuntu/Desktop/IDOS/header/msg_manager.h
+/home/thomas-ubuntu/Desktop/gatewayMQTT/header/msg_manager.h
 string
 -
 iostream
