@@ -1,1 +1,0 @@
-cmd='/usr/bin/cmake;-DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>;-DBUILD_GMOCK=ON;-Dgtest_force_shared_crt=ON;-GUnix Makefiles;/home/thomas-ubuntu/Desktop/gatewayMQTT/libraries/yaml-cpp/test/gtest-1.8.0'
