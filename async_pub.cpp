@@ -42,7 +42,6 @@ YAML::Node config = YAML::LoadFile("../config/config.yaml");
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"]["niryo"]["name"].as<std::string>());
 const int CLIENT_ID(config["ID_entity"].as<int>());
-const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 const int QOS = config["QOS"].as<int>();
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
 
@@ -133,8 +132,31 @@ int main(int argc, char **argv) {
 
 			json json_msg = m.deserialization(buffer);
 
+			std::string topic;
 			mqtt::delivery_token_ptr pubtok;
-			pubtok = client.publish(TOPIC, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
+			// Filter in order to publish on the correct topic depending on the receiver ID
+			if (json_msg["receiver_id"] == 0) {
+				topic = config["clients"]["operator"]["topic"].as<std::string>();
+			}
+			else if (100 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 200) {
+				topic = config["clients"]["niryo"]["topic"].as<std::string>();
+			}
+			else if (200 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 300) {
+				topic = config["clients"]["turtlebot"]["topic"].as<std::string>();
+			}
+			else if (200 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 300) {
+				topic = config["clients"]["turtlebot"]["topic"].as<std::string>();
+			}
+			else if (300 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 400) {
+				topic = config["clients"]["isenbot"]["topic"].as<std::string>();
+			}
+			else if (400 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 500) {
+				topic = config["clients"]["hexapod"]["topic"].as<std::string>();
+			}
+			else if (json_msg["receiver_id"] == 500) {
+				topic = config["clients"]["server"]["topic"].as<std::string>();
+			}
+			pubtok = client.publish(topic, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
 			std::cout << "SENDING MESSAGE..." << std::endl;
 			std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
 			std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;

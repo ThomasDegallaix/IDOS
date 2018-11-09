@@ -18,6 +18,10 @@ ID_entity: 1
 
 ##CLIENTS and RELATED PARAMATERS
 clients:
+  operator:
+    name: "operator"
+    ID_type: 0
+    topic: "operator_t"
   niryo:
     name: "niryo"
     ID_type: 100
