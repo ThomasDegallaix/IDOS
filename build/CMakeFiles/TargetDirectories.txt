@@ -1,9 +1,0 @@
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/edit_cache.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/rebuild_cache.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/async_pub_sample.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/messageFunctions.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/async_pub_serial.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/async_sub_serial.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/async_sub.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/async_sub_sample.dir
-/home/thomas-ubuntu/Desktop/gatewayMQTT/build/CMakeFiles/async_pub.dir
