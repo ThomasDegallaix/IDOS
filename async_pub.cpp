@@ -40,7 +40,7 @@ msg_manager m;
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
-const std::string CLIENT_NAME(config["clients"]["niryo"]["name"].as<std::string>());
+const std::string CLIENT_NAME(config["clients"]["server"]["name"].as<std::string>());
 const int CLIENT_ID(config["ID_entity"].as<int>());
 const int QOS = config["QOS"].as<int>();
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
 
 
 	std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
-	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
+	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID) + "_pub";
 	mqtt::async_client client(SERVER_ADDRESS,CLIENT);
 	int sockfd;
 	char buffer[MAXLINE];

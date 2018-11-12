@@ -205,7 +205,7 @@ public:
 int main(int argc, char **argv) {
 
   std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
-  std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
+  std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID) + "_sub";
   mqtt::async_client client(SERVER_ADDRESS, CLIENT);
 
   std::cout << "Setting up MQTT connection options" << std::endl;
