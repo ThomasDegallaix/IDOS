@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 
 
 	std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
-	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID);
+	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID) + "_pub";
 	mqtt::async_client client(SERVER_ADDRESS,CLIENT);
 	/*
 	int sockfd;
