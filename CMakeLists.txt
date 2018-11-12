@@ -21,7 +21,7 @@ if(BUILD_DEPENDENCIES)
                             SOURCE_DIR "${CMAKE_LIB_PATH}/paho.mqtt.c"
                             BUILD_COMMAND make
                             INSTALL_COMMAND make install
-                            CMAKE_ARGS -DPAHO_WITH_SSL=TRUE)
+                            CMAKE_ARGS -DPAHO_WITH_SSL=TRUE -DPAHO_ENABLE_TESTING=FALSE)
 
       ExternalProject_Add(paho.mqtt.cpp
                             SOURCE_DIR "${CMAKE_LIB_PATH}/paho.mqtt.cpp"
@@ -35,7 +35,7 @@ if(BUILD_DEPENDENCIES)
                             SOURCE_DIR "${CMAKE_LIB_PATH}/yaml-cpp"
                             BUILD_COMMAND make
                             INSTALL_COMMAND make install
-                            CMAKE_ARGS -DBUILD_SHARED_LIBS=ON)
+                            CMAKE_ARGS -DBUILD_SHARED_LIBS=ON -DYAML_CPP_BUILD_TESTS=OFF)
 
       add_library(YAML_CPP_LIB SHARED "${CMAKE_LIB_PATH}/yaml-cpp")
       set_target_properties(YAML_CPP_LIB PROPERTIES LINKER_LANGUAGE CXX)
