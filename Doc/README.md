@@ -15,7 +15,8 @@ As a visual support to these explanations you can open the .PNG files in this fo
 	
 	- conf.d :
 		- mosquitto.conf : Configuration file of the broker. 
-		  It contains all the variables in order to setup the use of the SSL/TLS communication and of a username/password.
+		  It contains all the variables in order to setup the use of the SSL/TLS
+		  communication and of a username/password.
 		  It also contains the port on which the broker is listening to.
 
 	- ca_certificates : 
