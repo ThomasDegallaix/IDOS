@@ -1,8 +1,9 @@
-THIS FILE IS AIMING TO EXPLAIN AS MUCH AS POSSIBLE THE UTILITY OF EACH DOCUMENTS/FILES USED FOR THE IDOS COMMUNICATION PROJECT (GATEWAY)
+This file is aiming to explain as much as possible the utility of each documents/files used for the IDOS communication project (Gateway).
 
-ALL THE DOCUMENT ARE STORED EITHER IN THE "/ETC/MOSQUITTO/" FOLDER OR IN THE "GATEWAYMQTT/" FOLDER PREVIOUSLY CLONED FROM https://github.com/ThomasDegallaix/gatewayMQTT.git
+All the documents are stored either in the "/etc/mosquitto/" folder or in the "gatewayMQTT/" folder previously cloned from https://github.com/ThomasDegallaix/gatewayMQTT.git
 
-AS A VISUAL SUPPORT TO THESE EXPLANATIONS YOU CAN OPEN THE .PNG FILES IN THIS FOLDER WHICH SUMMARISE THE SOFTWARE ARCHITECTURE OF THE PROJECT
+
+As a visual support to these explanations you can open the .PNG files in this folder which summarise the software architecture of the project.
 
 *****************************************************************************************************************************************************************************
 
