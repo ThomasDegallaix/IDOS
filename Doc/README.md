@@ -42,17 +42,17 @@ As a visual support to these explanations you can open the .PNG files in this fo
 		- config.yaml : Configuration file for the gateway.
 
 	- examples :
-		- async_pub_sample : Example of a simple publisher.
-		- async_sub_sample : Example of a simple subscriber.
+		- async_pub_sample : Example of a simple MQTT publisher.
+		- async_sub_sample : Example of a simple MQTT subscriber.
 
 	- header :
 		- json.hpp : Header of the json library. Has to be included in each cpp file requiring this library.
 		- msg_manager.h : Header for the declaration of the custom class msg_manager. 
-		  Allows manipulation of the json message such as serialization/deserialization.
+		  Allows manipulation of json messages such as serialization/deserialization.
 
 	- libraries :
-		- json : Library used for the json message.
-		- paho.mqtt.cpp : Library used for the MQTT protocol.
+		- json : Library used for json messages.
+		- paho.mqtt.cpp : Library used for MQTT protocol.
 		- paho.mqtt.c : Library which is used as dependency for the mqtt.paho.cpp library.
 		- yaml-cpp : Library included in order to be able to use yaml files.
 
@@ -65,22 +65,27 @@ As a visual support to these explanations you can open the .PNG files in this fo
 		  It was used to manage a class formatted message before switching to a json formatted message.
 		- idos_message.cpp : Definition of the idos_message class.
 
-	- async_sub.cpp : MQTT subscriber using sockets in order to communicate with the main program of the robot. 
+	- async_sub.cpp : MQTT subscriber using sockets in order to communicate with 
+	  the main program of the robot. 
 	  [MQTT topic --> Subscriber --> Socket --> Main program]
 
-	- async_pub.cpp : MQTT publisher using sockets in order to communicate with the main program of the robot. 
+	- async_pub.cpp : MQTT publisher using sockets in order to communicate with 
+		the main program of the robot. 
 	  [Main program --> Socket --> Publisher --> MQTT topic]
 
-	- async_sub_serial.cpp : MQTT subscriber using serial port in order to communicate with the main program of the robot. 
+	- async_sub_serial.cpp : MQTT subscriber using serial port in order to communicate with 
+	  the main program of the robot. 
 	  [MQTT topic --> Subscriber --> Serial port --> Main program]
 
-	- async_pub_serial.cpp : MQTT publisher using serial port in order to communicate with the main program of the robot. 
-	  [MQTT topic --> Subscriber --> Serial port --> Main program]
+	- async_pub_serial.cpp : MQTT publisher using serial port in order to communicate with 
+	  the main program of the robot. 
+	  [Main program --> Serial port --> Publisher --> MQTT topic]
 	
 	- msg_manager.cpp : Definition of the msg_manager class.
 
 	- install.sh : Installation file. 
-	  It has to be launched the first time you clone the repository in order to install all the dependencies and the binary files.
+	  It has to be launched the first time you clone the repository in order to install all the dependencies 
+	  and the binary files.
 
 	- CMakeList.txt : Makefile called to build the project.
 
