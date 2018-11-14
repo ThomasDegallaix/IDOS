@@ -156,7 +156,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 
     auto json_msg = m.deserialization(msg->to_string().c_str());
 
-    if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<int>()) {
+    if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<int>() + config["ID_entity"].as<int>()) {
 
       int sockfd;
       struct sockaddr_in servaddr;
