@@ -52,4 +52,4 @@ QOS: 1
 TIMEOUT: 10
 
 ##Number of retries if connection lost before exit
-N_RETRY_ATTEMPTS: 5
+N_RETRY_ATTEMPTS: 15

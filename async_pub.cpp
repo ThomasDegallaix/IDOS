@@ -24,8 +24,8 @@
 #include <cstdlib>
 #include <string>
 #include <cstring>
+#include <thread>
 #include <chrono>
-#include <vector>
 #include "header/msg_manager.h"
 #include "header/json.hpp"
 #include "mqtt/async_client.h"
@@ -39,28 +39,71 @@ msg_manager m;
 //ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
+/* This variables set up the parameters of the mqtt communication */
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"]["server"]["name"].as<std::string>());
 const int CLIENT_ID(config["ID_entity"].as<int>());
+/* Quality Of Service level - 1 = message devlivered at least once - use of ACK */
 const int QOS = config["QOS"].as<int>();
+/* In case of problems, number of time the client is trying to reconnect */
+const int N_RETRY_ATTEMPTS = config["N_RETRY_ATTEMPTS"].as<int>();
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
 
 
-
-
 /* A callback class for use with the main MQTT client */
-class callback : public virtual mqtt::callback {
-public:
-	void connection_lost(const std::string& cause) override {
+class callback : public virtual mqtt::callback, public virtual mqtt::iaction_listener {
+
+	/* Number of connection retries before timeout */
+  int nretry_;
+  /* Declaration of the MQTT client */
+  mqtt::async_client& cli_;
+  /* Object which contains the connection options */
+  mqtt::connect_options& connOpts_;
+
+	/* Try to reconnect in case of failure with the same connection options */
+	// Call the async_client::connect() method
+	void reconnect() {
+		std::this_thread::sleep_for(std::chrono::milliseconds(2500));
+		try {
+			cli_.connect(connOpts_, nullptr, *this);
+		}
+		catch (const mqtt::exception& exc) {
+			std::cerr << "Error: " << exc.what() << std::endl;
+			exit(1);
+		}
+	}
+
+  void on_success(const mqtt::token& tok) override {
+    std::cout << "Connected" << std::endl;
+  }
+
+	/* Call reconnect() in case of failure until we reach the max number of retry */
+	void on_failure(const mqtt::token& tok) override {
+		std::cout << "Connection failed" << std::endl;
+		if (++nretry_ > N_RETRY_ATTEMPTS)
+			exit(1);
+		reconnect();
+	}
+
+
+	/* If connection is lost (cf on_connection_lost() in async_client.cpp) call reconnect() */
+  void connection_lost(const std::string& cause) override {
 		std::cout << "\nConnection lost" << std::endl;
 		if (!cause.empty())
 			std::cout << "\tcause: " << cause << std::endl;
+
+		std::cout << "Reconnecting..." << std::endl;
+		nretry_ = 0;
+		reconnect();
 	}
 
 	void delivery_complete(mqtt::delivery_token_ptr tok) override {
 		std::cout << "\tDelivery complete for token: "
 			<< (tok ? tok->get_message_id() : -1) << std::endl;
 	}
+
+public:
+	callback(mqtt::async_client& cli, mqtt::connect_options& connOpts): nretry_(0), cli_(cli), connOpts_(connOpts) {}
 };
 
 
@@ -103,12 +146,14 @@ int main(int argc, char **argv) {
 	sslopts.set_trust_store("../certs/ca.crt");
 	//Set up connection options
 	mqtt::connect_options connOpts;
+	connOpts.set_keep_alive_interval(20);
+	connOpts.set_clean_session(true);
 	connOpts.set_user_name("IDOSdevice2");
 	connOpts.set_password("TrYaGA1N");
 	connOpts.set_ssl(sslopts);
 
 	std::cout << "Setting up MQTT callbacks" << std::endl;
-	callback cb;
+	callback cb(client, connOpts);
 	client.set_callback(cb);
 
 	std::cout << "Setup: OK..." << std::endl;
