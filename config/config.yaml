@@ -14,7 +14,7 @@ socket_port_SG: 5001
 
 ##This ID corresponds to the robot number among the other robots of the same type
 ## /!\ THIS HAS TO BE SET UP BY THE ADMINISTRATOR FOR THE MOMENT /!\
-ID_entity: 1
+ID_entity: 0
 
 ##CLIENTS and RELATED PARAMATERS
 clients:

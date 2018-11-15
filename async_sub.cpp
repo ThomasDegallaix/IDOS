@@ -152,41 +152,46 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
 
+    json json_msg;
 
+    try {
+      json_msg = m.deserialization(msg->to_string().c_str());
 
-    auto json_msg = m.deserialization(msg->to_string().c_str());
+      if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<int>() + config["ID_entity"].as<int>()) {
 
-    if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<int>() + config["ID_entity"].as<int>()) {
+        int sockfd;
+        struct sockaddr_in servaddr;
 
-      int sockfd;
-      struct sockaddr_in servaddr;
+        // Creating socket file descriptor
+        if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
+            std::cout << "ERROR: Socket creation failed" << std::endl;
+            exit(EXIT_FAILURE);
+        }
 
-      // Creating socket file descriptor
-      if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
-          std::cout << "ERROR: Socket creation failed" << std::endl;
+        memset(&servaddr, 0, sizeof(servaddr));
+
+        // Filling server information
+        const char* targetIp = "127.0.0.1";
+        servaddr.sin_family = AF_INET;
+        servaddr.sin_addr.s_addr = inet_addr(targetIp);
+        servaddr.sin_port = htons(config["socket_port_GS"].as<int>());
+
+        std::cout << "Sending message to " << targetIp << " via UDP socket ..." << std::endl;
+        // Sending message to control program
+        int s;
+        s = sendto(sockfd, msg->to_string().c_str(), strlen(msg->to_string().c_str()), 0, (const struct sockaddr *) &servaddr,  sizeof(servaddr));
+        if (s < 0) {
+          std::cout << "ERROR: Can't send UDP socket message" << std::endl;
           exit(EXIT_FAILURE);
+        }
+        else {
+          std::cout << "DONE\n" << std::endl;
+        }
+        close(sockfd);
       }
-
-      memset(&servaddr, 0, sizeof(servaddr));
-
-      // Filling server information
-      const char* targetIp = "127.0.0.1";
-      servaddr.sin_family = AF_INET;
-      servaddr.sin_addr.s_addr = inet_addr(targetIp);
-      servaddr.sin_port = htons(config["socket_port_GS"].as<int>());
-
-      std::cout << "Sending message to " << targetIp << " via UDP socket ..." << std::endl;
-      // Sending message to control program
-      int s;
-      s = sendto(sockfd, msg->to_string().c_str(), strlen(msg->to_string().c_str()), 0, (const struct sockaddr *) &servaddr,  sizeof(servaddr));
-      if (s < 0) {
-        std::cout << "ERROR: Can't send UDP socket message" << std::endl;
-        exit(EXIT_FAILURE);
-      }
-      else {
-        std::cout << "DONE\n" << std::endl;
-      }
-      close(sockfd);
+    }
+    catch (json::parse_error &e) {
+      std::cerr << e.what() << std::endl;
     }
 
     m.clear_message(json_msg);

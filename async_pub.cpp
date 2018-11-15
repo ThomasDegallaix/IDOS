@@ -169,44 +169,54 @@ int main(int argc, char **argv) {
 
 			int retval;
 			socklen_t len;
+      json json_msg;
 
 			retval = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, ( struct sockaddr *) &cliaddr, &len);
 			buffer[retval] = '\0';
 
-			std::cout << buffer << std::endl;
 
-			json json_msg = m.deserialization(buffer);
+      try {
+        std::string topic;
+        mqtt::delivery_token_ptr pubtok;
 
-			std::string topic;
-			mqtt::delivery_token_ptr pubtok;
-			// Filter in order to publish on the correct topic depending on the receiver ID
-			if (json_msg["receiver_id"] == 0) {
-				topic = config["clients"]["operator"]["topic"].as<std::string>();
-			}
-			else if (100 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 200) {
-				topic = config["clients"]["niryo"]["topic"].as<std::string>();
-			}
-			else if (200 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 300) {
-				topic = config["clients"]["turtlebot"]["topic"].as<std::string>();
-			}
-			else if (200 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 300) {
-				topic = config["clients"]["turtlebot"]["topic"].as<std::string>();
-			}
-			else if (300 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 400) {
-				topic = config["clients"]["isenbot"]["topic"].as<std::string>();
-			}
-			else if (400 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 500) {
-				topic = config["clients"]["hexapod"]["topic"].as<std::string>();
-			}
-			else if (json_msg["receiver_id"] == 500) {
-				topic = config["clients"]["server"]["topic"].as<std::string>();
-			}
-			pubtok = client.publish(topic, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
-			std::cout << "SENDING MESSAGE..." << std::endl;
-			std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
-			std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;
-			pubtok->wait_for(TIMEOUT);
-			std::cout << "  ...OK\n" << std::endl;
+        json_msg = m.deserialization(buffer);
+
+  			// Filter in order to publish on the correct topic depending on the receiver ID
+  			if (json_msg["receiver_id"] == 0) {
+  				topic = config["clients"]["operator"]["topic"].as<std::string>();
+  			}
+  			else if (100 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 200) {
+  				topic = config["clients"]["niryo"]["topic"].as<std::string>();
+  			}
+  			else if (200 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 300) {
+  				topic = config["clients"]["turtlebot"]["topic"].as<std::string>();
+  			}
+  			else if (200 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 300) {
+  				topic = config["clients"]["turtlebot"]["topic"].as<std::string>();
+  			}
+  			else if (300 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 400) {
+  				topic = config["clients"]["isenbot"]["topic"].as<std::string>();
+  			}
+  			else if (400 <= json_msg["receiver_id"] && json_msg["receiver_id"] < 500) {
+  				topic = config["clients"]["hexapod"]["topic"].as<std::string>();
+  			}
+  			else if (json_msg["receiver_id"] == 500) {
+  				topic = config["clients"]["server"]["topic"].as<std::string>();
+  			}
+        else {
+          std::cerr << "ERROR: Could not choose a right topic" << std::endl;
+          return 1;
+        }
+        pubtok = client.publish(topic, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
+  			std::cout << "SENDING MESSAGE..." << std::endl;
+  			std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;
+  			std::cout << "  ...for message with " << pubtok->get_message()->get_payload().size() << " bytes" << std::endl;
+  			pubtok->wait_for(TIMEOUT);
+  			std::cout << "  ...OK\n" << std::endl;
+      }
+      catch (json::parse_error &e) {
+        std::cerr << e.what() << std::endl;
+      }
 		}
 	}
 	catch (const mqtt::exception& exc) {
