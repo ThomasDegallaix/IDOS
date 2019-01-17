@@ -4,7 +4,7 @@
 #"tcp://localhost:1883"
 #"ssl://localhost:18885"
 ## BROKER
-server_address: "ssl://localhost:18885"
+server_address: "ssl://10.125.0.32:18885"
 
 # Socket port gateway ---> system
 socket_port_GS: 5000
@@ -14,7 +14,7 @@ socket_port_SG: 5001
 
 ##This ID corresponds to the robot number among the other robots of the same type
 ## /!\ THIS HAS TO BE SET UP BY THE ADMINISTRATOR FOR THE MOMENT /!\
-ID_entity: 0
+ID_entity: 1
 
 ##CLIENTS and RELATED PARAMATERS
 clients:
@@ -51,5 +51,7 @@ QOS: 1
 
 TIMEOUT: 10
 
-##Number of retries if connection lost before exit
+##Number of retries if connection lost before exiting
 N_RETRY_ATTEMPTS: 15
+
+

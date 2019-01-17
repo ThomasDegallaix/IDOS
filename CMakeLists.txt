@@ -10,6 +10,12 @@ set(CMAKE_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/")
 
 ##TRUE IF YOU ONLY WANT TO BUILD THE LIBRARIES, OTHERWISE IT WILL BUILD THE GATEWAY
 set(BUILD_DEPENDENCIES FALSE CACHE BOOL "Build every needed libraries")
+##PARAMETERS TO CONFIGURE THE GATEWAY REGARDING THE ROBOT TYPE
+set(TURTLEBOT_CONFIG FALSE CACHE BOOL "Configure the gateway with Turtlebot's parameter")
+set(ISENBOT_CONFIG FALSE CACHE BOOL "Configure the gateway with ISENBOT's parameter")
+set(NIRYO_CONFIG FALSE CACHE BOOL "Configure the gateway with Niryo's parameter")
+set(SERVER_CONFIG FALSE CACHE BOOL "Configure the gateway with Server's parameter")
+set(HEXAPOD_CONFIG FALSE CACHE BOOL "Configure the gateway with Hexapod's parameter")
 
 include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
@@ -41,6 +47,18 @@ if(BUILD_DEPENDENCIES)
       set_target_properties(YAML_CPP_LIB PROPERTIES LINKER_LANGUAGE CXX)
       install(TARGETS YAML_CPP_LIB DESTINATION ${CMAKE_INSTALL_PATH})
 
+	if(TURTLEBOT_CONFIG)
+		file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/config/config.yaml "entity_type: turtlebot")
+	elseif(ISENBOT_CONFIG)
+		file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/config/config.yaml "entity_type: isenbot")
+	elseif(NIRYO_CONFIG)
+		file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/config/config.yaml "entity_type: niryo")
+	elseif(SERVER_CONFIG)
+		file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/config/config.yaml "entity_type: server")
+	elseif(HEXAPOD_CONFIG)
+		file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/config/config.yaml "entity_type: hexapod")
+	endif()
+
 else()
 
       add_library(messageFunctions msg_manager.cpp)
@@ -50,8 +68,10 @@ else()
       add_executable(async_pub async_pub.cpp)
       add_executable(async_sub_sample examples/async_sub_sample.cpp)
       add_executable(async_pub_sample examples/async_pub_sample.cpp)
-      add_executable(async_sub_serial async_sub_serial.cpp)
-      add_executable(async_pub_serial async_pub_serial.cpp)
+      add_executable(async_sub_socket examples/async_sub_socket.cpp)
+      add_executable(async_pub_socket examples/async_pub_socket.cpp)
+      add_executable(async_sub_serial examples/async_sub_serial.cpp)
+      add_executable(async_pub_serial examples/async_pub_serial.cpp)
 
 
       ## Bring libraries
@@ -67,6 +87,16 @@ else()
           ${YAML_CPP}
           messageFunctions)
       target_link_libraries(async_pub
+          ${PAHO_C_LIB}
+          ${PAHO_CPP_LIB}
+          ${YAML_CPP}
+          messageFunctions)
+      target_link_libraries(async_sub_socket
+          ${PAHO_C_LIB}
+          ${PAHO_CPP_LIB}
+          ${YAML_CPP}
+          messageFunctions)
+      target_link_libraries(async_pub_socket
           ${PAHO_C_LIB}
           ${PAHO_CPP_LIB}
           ${YAML_CPP}
