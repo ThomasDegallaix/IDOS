@@ -1,10 +1,8 @@
 Install STEP by STEP :
 
-+ Get the repository :
-+ 	git clone --recursive https://github.com/ThomasDegallaix/gatewayMQTT.git
-+ 	cd gatewayMQTT
-+ Install the gateway regarding the entity type (TYPE NUMBER : "1" = turtlebot, "2" = ISENBOT, "3" = Niryo, "4" = control server, "5" =  hexapod)
-+ 	./install.sh 
++ git clone --recursive https://github.com/ThomasDegallaix/gatewayMQTT.git
++ cd gatewayMQTT
++ ./install.sh 
 
 
 If you want to build new files for the project, add exectuables in CMakeLists.txt.
