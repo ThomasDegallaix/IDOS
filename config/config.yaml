@@ -54,5 +54,3 @@ TIMEOUT: 10
 ##Number of retries if connection lost before exiting
 N_RETRY_ATTEMPTS: 10000
 
-
-entity_type: turtlebot
