@@ -41,6 +41,7 @@ YAML::Node config = YAML::LoadFile("../config/config.yaml");
 const std::string ENTITY_TYPE (config["entity_type"].as<std::string>());
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"][ENTITY_TYPE]["name"].as<std::string>());
+const int TYPE_ID = config["clients"][ENTITY_TYPE]["ID_type"].as<int>();
 const int CLIENT_ID(config["ID_entity"].as<int>());     //A REQUETER A LA BDD
 const std::string TOPIC(config["clients"]["turtlebot"]["topic"].as<std::string>());
 /* Quality Of Service level - 1 = message delivered at least once - use of ACK */
@@ -158,7 +159,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
     try {
       json_msg = m.deserialization(msg->to_string().c_str());
 
-      if (json_msg["receiver_id"] == config["clients"]["turtlebot"]["ID_type"].as<int>() + config["ID_entity"].as<int>()) {
+      if (json_msg["receiver_id"] == TYPE_ID + CLIENT_ID) {
 
         int sockfd;
         struct sockaddr_in servaddr;

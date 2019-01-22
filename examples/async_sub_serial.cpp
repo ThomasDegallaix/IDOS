@@ -45,6 +45,7 @@ const std::string ENTITY_TYPE (config["entity_type"].as<std::string>());
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"][ENTITY_TYPE]["name"].as<std::string>());
 const int CLIENT_ID(config["ID_entity"].as<int>());   //A REQUETER A LA BDD
+const int TYPE_ID = config["clients"][ENTITY_TYPE]["ID_type"].as<int>();
 const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
 /* Quality Of Service level - 1 = message delivered at least once - use of ACK */
 const int QOS = config["QOS"].as<int>();
@@ -156,76 +157,79 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
 
+    json json_msg;
 
+    if (json_msg["receiver_id"] == TYPE_ID + CLIENT_ID) {
 
-    //auto json_msg = m.deserialization(msg->to_string().c_str());
+      //auto json_msg = m.deserialization(msg->to_string().c_str());
 
-    //if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<std::string>()) {
-/*
-      int sockfd;
-      struct sockaddr_in servaddr;
+      //if (json_msg["receiver_id"] == config["clients"]["server"]["ID_type"].as<std::string>()) {
+  /*
+        int sockfd;
+        struct sockaddr_in servaddr;
 
-      // Creating socket file descriptor
-      if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
-          std::cout << "ERROR: Socket creation failed" << std::endl;
+        // Creating socket file descriptor
+        if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
+            std::cout << "ERROR: Socket creation failed" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+
+        memset(&servaddr, 0, sizeof(servaddr));
+
+        // Filling server information
+        const char* targetIp = "192.168.43.187";
+        servaddr.sin_family = AF_INET;
+        servaddr.sin_addr.s_addr = inet_addr(targetIp);
+        servaddr.sin_port = htons(config["socket_port_GS"].as<int>());
+        //inet_pton(AF_INET,"192.168.43.187", &servaddr.sin_addr.s_addr );
+
+        std::cout << "Sending message to " << targetIp << " via UDP socket ..." << std::endl;
+        // Sending message to control program
+        int s;
+        s = sendto(sockfd, msg->to_string().c_str(), strlen(msg->to_string().c_str()), 0, (const struct sockaddr *) &servaddr,  sizeof(servaddr));
+        if (s < 0) {
+          std::cout << "ERROR: Can't send UDP socket message" << std::endl;
           exit(EXIT_FAILURE);
-      }
+        }
+        else {
+          std::cout << "DONE\n" << std::endl;
+        }
+        close(sockfd);
+        */
+        int fd; /* File descriptor for the port */
 
-      memset(&servaddr, 0, sizeof(servaddr));
+        const char* port = "/dev/ttyACM0";
+        fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY);
+        if (fd == -1) {
+          perror("open_port: Unable to open /dev/ttyf1 - ");
+        }
+        else {
+          fcntl(fd, F_SETFL, 0);
+        }
 
-      // Filling server information
-      const char* targetIp = "192.168.43.187";
-      servaddr.sin_family = AF_INET;
-      servaddr.sin_addr.s_addr = inet_addr(targetIp);
-      servaddr.sin_port = htons(config["socket_port_GS"].as<int>());
-      //inet_pton(AF_INET,"192.168.43.187", &servaddr.sin_addr.s_addr );
+        struct termios options;
+        // Get the current options for the port
+        tcgetattr(fd, &options);
+        // Set the baud rates to 9600
+        cfsetispeed(&options, B9600);
+        cfsetospeed(&options, B9600);
+        // Enable the receiver and et local mode
+        options.c_cflag |= (CLOCAL | CREAD);
+        options.c_cflag &= ~CSIZE; /* Mask the character size bits */
+        options.c_cflag |= CS8;    /* Select 8 data bits */
+        // Set the new options for the port
+        tcsetattr(fd, TCSANOW, &options);
 
-      std::cout << "Sending message to " << targetIp << " via UDP socket ..." << std::endl;
-      // Sending message to control program
-      int s;
-      s = sendto(sockfd, msg->to_string().c_str(), strlen(msg->to_string().c_str()), 0, (const struct sockaddr *) &servaddr,  sizeof(servaddr));
-      if (s < 0) {
-        std::cout << "ERROR: Can't send UDP socket message" << std::endl;
-        exit(EXIT_FAILURE);
-      }
-      else {
-        std::cout << "DONE\n" << std::endl;
-      }
-      close(sockfd);
-      */
-      int fd; /* File descriptor for the port */
+        int n = write(fd, msg->to_string().c_str(), strlen(msg->to_string().c_str()));
+        if (n < 0) {
+          std::cout << "ERROR: Could not write the " << n << " bytes on port " << port << std::endl;
+        }
+        close(fd);
 
-      const char* port = "/dev/ttyACM0";
-      fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY);
-      if (fd == -1) {
-        perror("open_port: Unable to open /dev/ttyf1 - ");
-      }
-      else {
-        fcntl(fd, F_SETFL, 0);
-      }
+      //}
 
-      struct termios options;
-      // Get the current options for the port
-      tcgetattr(fd, &options);
-      // Set the baud rates to 9600
-      cfsetispeed(&options, B9600);
-      cfsetospeed(&options, B9600);
-      // Enable the receiver and et local mode
-      options.c_cflag |= (CLOCAL | CREAD);
-      options.c_cflag &= ~CSIZE; /* Mask the character size bits */
-      options.c_cflag |= CS8;    /* Select 8 data bits */
-      // Set the new options for the port
-      tcsetattr(fd, TCSANOW, &options);
-
-      int n = write(fd, msg->to_string().c_str(), strlen(msg->to_string().c_str()));
-      if (n < 0) {
-        std::cout << "ERROR: Could not write the " << n << " bytes on port " << port << std::endl;
-      }
-      close(fd);
-
-    //}
-
-    //m.clear_message(json_msg);
+      //m.clear_message(json_msg);
+    }
 
 	}
 
