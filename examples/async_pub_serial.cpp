@@ -76,32 +76,7 @@ int main(int argc, char **argv) {
 	std::cout << "Initializing for server '" << SERVER_ADDRESS << "'..." << std::endl;
 	std::string CLIENT = CLIENT_NAME + std::to_string(CLIENT_ID) + "_pub";
 	mqtt::async_client client(SERVER_ADDRESS,CLIENT);
-	/*
-	int sockfd;
-	char buffer[MAXLINE];
-	struct sockaddr_in servaddr, cliaddr;
 
-	std::cout << "Setting up UDP socket communication" << std::endl;
-	// Creating socket file descriptor
-  if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
-      std::cout << "ERROR: Socket creation failed" << std::endl;
-      exit(EXIT_FAILURE);
-  }
-
-  memset(&servaddr, 0, sizeof(servaddr));
-  memset(&cliaddr, 0, sizeof(cliaddr));//Set the sender's id correclty according to the entityt on which the gateway is installed
-
-  // Filling server information
-  servaddr.sin_family    = AF_INET; // IPv4
-  servaddr.sin_addr.s_addr = INADDR_ANY;
-  servaddr.sin_port = htons(config["socket_port_SG"].as<int>());
-
-  // Bind the socket with the server address
-  if ( bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0 ) {
-      std::cout << "ERROR: Bind failed" << std::endl;
-      exit(EXIT_FAILURE);
-  }
-*/
 
 	int fd; /* File descriptor for the port *///Set the sender's id correclty according to the entityt on which the gateway is installed
 
@@ -166,19 +141,6 @@ int main(int argc, char **argv) {
 			std::cout << "Waiting for the connection..." << std::endl;
 			conntok->wait();
 			std::cout << "Connection: OK..." << std::endl;
-
-
-/*
-			int retval;
-			socklen_t len;
-
-			retval = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, ( struct sockaddr *) &cliaddr, &len);
-			buffer[retval] = '\0';
-
-			std::cout << buffer << std::endl;
-*/
-			//json json_msg = m.deserialization(buffer);
-
 
 
 			while(1) {

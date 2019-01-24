@@ -37,9 +37,11 @@ using json = nlohmann::json;
 msg_manager m;
 
 //ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
+
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 /* This variables set up the parameters of the mqtt communication */
+
 const std::string ENTITY_TYPE (config["entity_type"].as<std::string>());
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"][ENTITY_TYPE]["name"].as<std::string>());
