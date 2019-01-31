@@ -151,12 +151,12 @@ int main(int argc, char **argv) {
 
       int fd; /* File descriptor for the port *///Set the sender's id correclty according to the entityt on which the gateway is installed
 
-    	const char* port = "/dev/ttyACM0";
+    	const char* port = "/dev/arduino";
     	char buffer[MAXLINE];
     	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY);
       std::cout << "Setting up Serial port communication" << std::endl;
     	if (fd == -1) {
-    		perror("open_port: Unable to open /dev/ttyf1 - ");
+    		perror("open_port: Unable to open /dev/arduino - ");
     	}
     	else {
     		fcntl(fd, F_SETFL, 0);

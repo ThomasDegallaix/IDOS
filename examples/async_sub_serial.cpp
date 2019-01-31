@@ -38,7 +38,7 @@ const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"][ENTITY_TYPE]["name"].as<std::string>());
 const int CLIENT_ID(config["ID_entity"].as<int>());   //A REQUETER A LA BDD
 const int TYPE_ID = config["clients"][ENTITY_TYPE]["ID_type"].as<int>();
-const std::string TOPIC(config["clients"]["server"]["topic"].as<std::string>());
+const std::string TOPIC(config["clients"][ENTITY_TYPE]["topic"].as<std::string>());
 /* Quality Of Service level - 1 = message delivered at least once - use of ACK */
 const int QOS = config["QOS"].as<int>();
 /* In case of problems, number of time the client is trying to reconnect */
