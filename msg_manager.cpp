@@ -48,7 +48,7 @@ void msg_manager::clear_message(json &json_msg) {
 
 void msg_manager::clear_payload(json &json_msg) {
   for(int i = 0; i < json_msg["data"]["payload"].size(); i++) {
-    json_msg["data"]["payload"][i] = " ";
+    json_msg["data"]["payload"][i] = "null";
   }
 }
 
