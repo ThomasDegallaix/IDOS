@@ -139,10 +139,11 @@ int main(int argc, char **argv) {
 
   try {
     std::cout << "Connecting to the MQTT server..." << std::flush;
-    mqtt::token_ptr conntok = client.connect(connOpts);
+    client.connect(connOpts, nullptr, cb);
+    /*mqtt::token_ptr conntok = client.connect(connOpts);
     std::cout << "Waiting for the connection..." << std::endl;
     conntok->wait();
-    std::cout << "Connection: OK..." << std::endl;
+    std::cout << "Connection: OK..." << std::endl;*/
 
     std::cout << "Setting up internal communication for " << ENTITY_TYPE << std::endl;
 

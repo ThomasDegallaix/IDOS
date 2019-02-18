@@ -66,12 +66,7 @@ else()
       ## binary files
       add_executable(async_sub async_sub.cpp)
       add_executable(async_pub async_pub.cpp)
-      add_executable(async_sub_sample examples/async_sub_sample.cpp)
-      add_executable(async_pub_sample examples/async_pub_sample.cpp)
-      add_executable(async_sub_socket examples/async_sub_socket.cpp)
-      add_executable(async_pub_socket examples/async_pub_socket.cpp)
-      add_executable(async_sub_serial examples/async_sub_serial.cpp)
-      add_executable(async_pub_serial examples/async_pub_serial.cpp)
+
 
 
       ## Bring libraries
@@ -91,34 +86,5 @@ else()
           ${PAHO_CPP_LIB}
           ${YAML_CPP}
           messageFunctions)
-      target_link_libraries(async_sub_socket
-          ${PAHO_C_LIB}
-          ${PAHO_CPP_LIB}
-          ${YAML_CPP}
-          messageFunctions)
-      target_link_libraries(async_pub_socket
-          ${PAHO_C_LIB}
-          ${PAHO_CPP_LIB}
-          ${YAML_CPP}
-          messageFunctions)
-      target_link_libraries(async_sub_sample
-          ${PAHO_C_LIB}
-          ${PAHO_CPP_LIB}
-          ${YAML_CPP}
-          messageFunctions)
-      target_link_libraries(async_pub_sample
-          ${PAHO_C_LIB}
-          ${PAHO_CPP_LIB}
-          ${YAML_CPP}
-          messageFunctions)
-      target_link_libraries(async_sub_serial
-          ${PAHO_C_LIB}
-          ${PAHO_CPP_LIB}
-          ${YAML_CPP}
-          messageFunctions)
-      target_link_libraries(async_pub_serial
-          ${PAHO_C_LIB}
-          ${PAHO_CPP_LIB}
-          ${YAML_CPP}
-          messageFunctions)
+
 endif()
