@@ -55,5 +55,4 @@ TIMEOUT: 10
 N_RETRY_ATTEMPTS: 10000
 
 
-entity_type: turtlebot
 
