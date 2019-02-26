@@ -37,20 +37,21 @@
 using json = nlohmann::json;
 msg_manager m;
 
-//ATTENTION, LES CLIENTS DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
-
+/* Load of the config file */
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 /* This variables set up the parameters of the mqtt communication */
 
+  /* ENTITY_TYPE corresponds to the type of the robot or the server */
 const std::string ENTITY_TYPE (config["entity_type"].as<std::string>());
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"][ENTITY_TYPE]["name"].as<std::string>());
-const int CLIENT_ID = config["ID_entity"].as<int>(); //A REQUETER A LA BDD
+const int CLIENT_ID = config["ID_entity"].as<int>();
+  /* TYPE_ID corresponds to the ID number of the robot among the robots of the same type */
 const int TYPE_ID = config["clients"][ENTITY_TYPE]["ID_type"].as<int>();
-/* Quality Of Service level - 1 = message devlivered at least once - use of ACK */
+  /* Quality Of Service level - 1 = message devlivered at least once - use of ACK */
 const int QOS = config["QOS"].as<int>();
-/* In case of problems, number of time the client is trying to reconnect */
+  /* In case of problems, number of time the client is trying to reconnect */
 const int N_RETRY_ATTEMPTS = config["N_RETRY_ATTEMPTS"].as<int>();
 const auto TIMEOUT = std::chrono::seconds(config["TIMEOUT"].as<int>());
 
@@ -66,7 +67,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
   mqtt::connect_options& connOpts_;
 
 	/* Try to reconnect in case of failure with the same connection options */
-	// Call the async_client::connect() method
+	// Calls the async_client::connect() method
 	void reconnect() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(2500));
 		try {
@@ -82,7 +83,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
     std::cout << "Connected" << std::endl;
   }
 
-	/* Call reconnect() in case of failure until we reach the max number of retry */
+	/* Calls reconnect() in case of failure until we reach the max number of retry */
 	void on_failure(const mqtt::token& tok) override {
 		std::cout << "Connection failed" << std::endl;
 		if (++nretry_ > N_RETRY_ATTEMPTS)
@@ -110,7 +111,6 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 public:
 	callback(mqtt::async_client& cli, mqtt::connect_options& connOpts): nretry_(0), cli_(cli), connOpts_(connOpts) {}
 };
-
 
 
 int main(int argc, char **argv) {
@@ -148,9 +148,10 @@ int main(int argc, char **argv) {
     std::cout << "Setting up internal communication for " << ENTITY_TYPE << std::endl;
 
     /******** SERIAL PORT CONFIGURATION ********/
+    //If the robot is an isenbot we need to use the serial port to communicate with the main program
     if (ENTITY_TYPE == "isenbot") {
-
-      int fd; /* File descriptor for the port *///Set the sender's id correclty according to the entityt on which the gateway is installed
+      /* File descriptor for the port */
+      int fd;
 
     	const char* port = "/dev/arduino";
     	char buffer[MAXLINE];
@@ -168,7 +169,7 @@ int main(int argc, char **argv) {
     	// Get the current options for the port
     	tcgetattr(fd, &options);
     	// Set the baud rates to 9600
-    	cfsetispeed(&options, B9600);//Set the sender's id correclty according to the entityt on which the gateway is installed
+    	cfsetispeed(&options, B9600);
     	cfsetospeed(&options, B9600);
     	// 8 bits, no parity, no stop bits
       options.c_cflag &= ~PARENB;
@@ -181,7 +182,7 @@ int main(int argc, char **argv) {
     	options.c_cflag |= CREAD | CLOCAL;
     	// disable input/output flow control, disable restart chars
     	options.c_iflag &= ~(IXON | IXOFF | IXANY);
-    	//disable canonical input, disable echo,//Set the sender's id correclty according to the entityt on which the gateway is installed
+    	//disable canonical input, disable echo,
     	//disable visually erase chars,
     	//disable terminal-generated signals
     	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
@@ -192,22 +193,20 @@ int main(int argc, char **argv) {
     	// Flush anything already in the serial buffer
     	tcflush(fd, TCIFLUSH);
 
-
+      /******** SERIAL PORT LOOP ********/
   			while(1) {
 
-  				// Flush anything already in the serial buffer
   				memset(buffer,0,sizeof(buffer));
   				int n = read(fd, buffer, sizeof(buffer));
   				buffer[n] = 0;
   				std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-  				std::cout << n << " bytes got read !" << std::endl;
-  				std::cout << buffer << std::endl;
-
-  				if (n < 0) {
+          if (n < 0) {
   					std::cout << "ERROR: Could not read serial port !" << std::endl;
   				}
-  				else if (n > 0) {
+  				else (n > 0) {
+            std::cout << n << " bytes got read !" << std::endl;
+    				std::cout << buffer << std::endl;
   					int z = 0;
   					while(buffer[z] != '\0') {
   						z++;
@@ -215,7 +214,7 @@ int main(int argc, char **argv) {
 
   					json json_msg = m.deserialization(buffer);
 
-  					//Set the sender's id correclty according to the entityt on which the gateway is installed
+  					//Set the sender's id correclty according to the entity on which the gateway is installed
   	        json_msg["sender_id"] = CLIENT_ID + TYPE_ID;
 
   					std::string topic;
@@ -286,6 +285,7 @@ int main(int argc, char **argv) {
           exit(EXIT_FAILURE);
       }
 
+      /******** SOCKET LOOP ********/
       while(1) {
 
         int retval;
@@ -302,7 +302,7 @@ int main(int argc, char **argv) {
 
           json_msg = m.deserialization(buffer);
 
-          //Set the sender's id correclty according to the entityt on which the gateway is installed
+          //Set the sender's id correclty according to the entity on which the gateway is installed
           json_msg["sender_id"] = CLIENT_ID + TYPE_ID;
 
     			// Filter in order to publish in the correct topic depending on the receiver ID
@@ -328,6 +328,7 @@ int main(int argc, char **argv) {
             std::cerr << "ERROR: Could not choose a right topic" << std::endl;
             return 1;
           }
+          std::cout << json_msg << std::endl;
           pubtok = client.publish(topic, m.serialization(json_msg).c_str(), strlen(m.serialization(json_msg).c_str()), QOS, false);
     			std::cout << "SENDING MESSAGE..." << std::endl;
     			std::cout << "  ...with token: " << pubtok->get_message_id() << std::endl;

@@ -35,21 +35,21 @@
 using json = nlohmann::json;
 msg_manager m;
 
-//ATTENTION, LES CLIENTS MQTT DOIVENT AVOIR UN NOM+ID DIFFERENTS !!
-
+/* Load of the config file */
 YAML::Node config = YAML::LoadFile("../config/config.yaml");
 
 /* This variables set up the parameters of the mqtt communication */
-
+  /* ENTITY_TYPE corresponds to the type of the robot or the server */
 const std::string ENTITY_TYPE (config["entity_type"].as<std::string>());
 const std::string SERVER_ADDRESS(config["server_address"].as<std::string>());
 const std::string CLIENT_NAME(config["clients"][ENTITY_TYPE]["name"].as<std::string>());
-const int CLIENT_ID(config["ID_entity"].as<int>());   //A REQUETER A LA BDD
+const int CLIENT_ID(config["ID_entity"].as<int>());
+  /* TYPE_ID corresponds to the ID number of the robot among the robots of the same type */
 const int TYPE_ID(config["clients"][ENTITY_TYPE]["ID_type"].as<int>());
 const std::string TOPIC(config["clients"][ENTITY_TYPE]["topic"].as<std::string>());
-/* Quality Of Service level - 1 = message delivered at least once - use of ACK */
+  /* Quality Of Service level - 1 = message delivered at least once - use of ACK */
 const int QOS(config["QOS"].as<int>());
-/* In case of problems, number of time the client is trying to reconnect */
+  /* In case of problems, number of time the client is trying to reconnect */
 const int N_RETRY_ATTEMPTS(config["N_RETRY_ATTEMPTS"].as<int>());
 
 
@@ -59,8 +59,8 @@ const int N_RETRY_ATTEMPTS(config["N_RETRY_ATTEMPTS"].as<int>());
 /* Callbacks for success of failures of requested actions.
  Override some functions of the iaction_listener class */
 class action_listener : public virtual mqtt::iaction_listener {
-
-  std::string name_; //name the action (pub or sub for example)
+  //name the action (pub or sub for example)
+  std::string name_;
 
   /* A token is an object which tracks the delivery of a message + informations about the message */
 
@@ -108,7 +108,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
   /**************************** Actions (Callbacks) ****************************/
 
   /* Try to reconnect in case of failure with the same connection options */
-  // Call the async_client::connect() method
+  // Calls the async_client::connect() method
   void reconnect() {
     std::this_thread::sleep_for(std::chrono::milliseconds(2500));
 		try {
@@ -120,7 +120,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		}
   }
 
-  /* Call reconnect() in case of failure until we reach the max number of retry */
+  /* Calls reconnect() in case of failure until we reach the max number of retry */
   void on_failure(const mqtt::token& tok) override {
 		std::cout << "Connection failed" << std::endl;
 		if (++nretry_ > N_RETRY_ATTEMPTS)
@@ -139,7 +139,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 		cli_.subscribe(TOPIC, QOS, nullptr, subListener_);
 	}
 
-  /* If connection is lost (cf on_connection_lost() in async_client.cpp) call reconnect() */
+  /* If connection is lost (cf on_connection_lost() in async_client.cpp) calls reconnect() */
   void connection_lost(const std::string& cause) override {
 		std::cout << "\nConnection lost" << std::endl;
 		if (!cause.empty())
@@ -163,9 +163,11 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
 
       if (json_msg["receiver_id"] == TYPE_ID + CLIENT_ID) {
 
+        /******** SERIAL PORT CONFIGURATION ********/
         //If the robot is an isenbot we need to use the serial port to communicate with the main program
         if (ENTITY_TYPE == "isenbot") {
-          int fd; /* File descriptor for the port */
+          /* File descriptor for the port */
+          int fd;
 
           const char* port = "/dev/arduino";
           fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY);
@@ -200,6 +202,7 @@ class callback : public virtual mqtt::callback, public virtual mqtt::iaction_lis
           close(fd);
         }
 
+        /******** SOCKET CONFIGURATION ********/
         //Otherwise we need to use sockets
         else {
           int sockfd;
