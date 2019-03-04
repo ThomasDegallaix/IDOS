@@ -204,7 +204,7 @@ int main(int argc, char **argv) {
           if (n < 0) {
   					std::cout << "ERROR: Could not read serial port !" << std::endl;
   				}
-  				else (n > 0) {
+  				else if (n > 0) {
             std::cout << n << " bytes got read !" << std::endl;
     				std::cout << buffer << std::endl;
   					int z = 0;
